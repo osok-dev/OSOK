@@ -8,10 +8,12 @@ import {
 } from "@nextui-org/react";
 import React, { useState } from "react";
 import { Text } from "@nextui-org/react";
+import { useEthers } from "@usedapp/core";
 
 export const CreateJob: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [value, setValue] = useState("");
+  const { chainId } = useEthers();
 
   const handleSubmit = () => {
     if (!value) {
@@ -24,6 +26,8 @@ export const CreateJob: React.FC = () => {
   const handleChange = (e: React.ChangeEvent<FormElement>) => {
     setValue(e.target.value);
   };
+
+  const correctChain = chainId === 56;
 
   return (
     <>
@@ -41,9 +45,15 @@ export const CreateJob: React.FC = () => {
           bordered
           disabled={loading}
           contentRight={loading && <Loading size="xs" />}
+          helperText={
+            correctChain
+              ? "BNB Mainnet only"
+              : "WARNING: Not connected to BNB mainnet"
+          }
+          color={correctChain ? "default" : "error"}
         />
-        <Spacer />
-        <Button disabled={loading} onClick={handleSubmit} shadow>
+        <Spacer y={2} />
+        <Button disabled={loading} onClick={handleSubmit} shadow auto>
           {loading ? "Awaiting signature..." : "Submit"}
         </Button>
         <Spacer />

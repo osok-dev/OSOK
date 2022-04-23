@@ -7,45 +7,48 @@ import {
   Text,
   FormElement,
 } from "@nextui-org/react";
+import { useEtherBalance, useEthers } from "@usedapp/core";
 import React, { useState } from "react";
+import { formatBalance } from "../../utils";
 
-export const DepositEscrow: React.FC = () => {
+export const CreateEscrow: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [value, setValue] = useState("");
+  const { account } = useEthers();
 
   const handleSubmit = () => {
-    if (!value) {
-      alert("Please provide a deposit amount");
-    } else {
-      setLoading(true);
-    }
+    setLoading(true);
   };
 
   const handleChange = (e: React.ChangeEvent<FormElement>) => {
     setValue(e.target.value);
   };
 
+  const etherBalance = useEtherBalance(account);
+  const balanceDisplayValue = formatBalance(etherBalance);
+
   return (
     <Card>
       <Spacer />
-      <Text h3>Deposit To Escrow</Text>
+      <Text h3>Create Escrow</Text>
       <Spacer />
 
       <Input
-        type="number"
-        label="Amount to deposit"
         value={value}
         onChange={handleChange}
+        type="number"
+        label="Amount to deposit (optional)"
         placeholder=""
         clearable={!loading}
         bordered
         labelLeft="BNB"
         disabled={loading}
         contentRight={loading && <Loading size="xs" />}
+        helperText={`Wallet balance: ${balanceDisplayValue}`}
       />
-      <Spacer />
+      <Spacer y={2} />
       <Button disabled={loading} onClick={handleSubmit} shadow>
-        {loading ? "Awaiting signature..." : "Deposit"}
+        {loading ? "Awaiting signature..." : "Create"}
       </Button>
       <Spacer />
     </Card>

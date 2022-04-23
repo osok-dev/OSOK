@@ -17,6 +17,7 @@ interface RowData {
   gasCost: number;
 }
 
+console.log(dummyRows);
 export const OverviewTable: React.FC = () => {
   return (
     <>
@@ -40,6 +41,7 @@ export const OverviewTable: React.FC = () => {
             </Table.Row>
           )}
         </Table.Body>
+        <Table.Pagination shadow noMargin align="center" rowsPerPage={8} />
       </Table>
     </>
   );
