@@ -1,3 +1,4 @@
+import { Button, Input } from "@nextui-org/react";
 import React from "react";
 
 export const ManageFunds: React.FC = () => {
@@ -7,29 +8,47 @@ export const ManageFunds: React.FC = () => {
 
       <hr></hr>
       <h2>Create escrow</h2>
-      <label>
-        Amount to deposit (optional)
-        <input type="text" />
-      </label>
-      <button>Create</button>
+
+      <Input
+        type="number"
+        label="Amount to deposit (optional)"
+        placeholder=""
+        clearable
+        bordered
+        labelRight="BNB"
+      />
+
+      <Button>Create</Button>
 
       <br />
 
       <h2>Deposit to escrow</h2>
-      <label>
-        Amount to deposit
-        <input type="text" />
-      </label>
-      <button>Deposit</button>
+
+      <Input
+        type="number"
+        label="Amount to deposit"
+        placeholder=""
+        clearable
+        bordered
+        labelRight="BNB"
+      />
+
+      <Button>Deposit</Button>
 
       <br />
 
       <h2>Withdraw from escrow</h2>
-      <label>
-        Amount to withdraw
-        <input type="text" />
-      </label>
-      <button>Withdraw</button>
+
+      <Input
+        type="number"
+        label="Amount to withdraw"
+        placeholder=""
+        clearable
+        bordered
+        labelRight="BNB"
+      />
+
+      <Button>Withdraw</Button>
     </>
   );
 };

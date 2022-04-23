@@ -1,3 +1,4 @@
+import { Button, Input } from "@nextui-org/react";
 import React from "react";
 
 export const CreateJob: React.FC = () => {
@@ -5,11 +6,15 @@ export const CreateJob: React.FC = () => {
     <>
       <h1>Create Job</h1>
 
-      <label>
-        Contract address
-        <input type="text" />
-      </label>
-      <button>Submit</button>
+      <Input
+        type="text"
+        label="Contract address"
+        placeholder=""
+        clearable
+        bordered
+      />
+
+      <Button>Submit</Button>
     </>
   );
 };

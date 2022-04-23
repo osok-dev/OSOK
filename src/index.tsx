@@ -4,11 +4,14 @@ import "./index.css";
 import { App } from "./components/App";
 // import reportWebVitals from "./reportWebVitals";
 import { DAppProvider } from "@usedapp/core";
+import { NextUIProvider } from "@nextui-org/react";
 
 ReactDOM.render(
   <React.StrictMode>
     <DAppProvider config={{}}>
-      <App />
+      <NextUIProvider>
+        <App />
+      </NextUIProvider>
     </DAppProvider>
   </React.StrictMode>,
   document.getElementById("root")
