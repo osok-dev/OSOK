@@ -21,7 +21,7 @@ export const App: React.FC = () => {
 
       <Text h1>Manage Jobs and Funds</Text>
       <Spacer />
-      <Grid.Container gap={2}>
+      <Grid.Container gap={2} css={{ paddingLeft: 0, paddingRight: 0 }}>
         <Grid xs={12} sm={6} md={4} lg={3}>
           <CreateJob />
         </Grid>

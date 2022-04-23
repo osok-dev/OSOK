@@ -1,8 +1,7 @@
-import { Spacer, Table } from "@nextui-org/react";
+import { Table } from "@nextui-org/react";
 import React from "react";
 import { colDefs } from "./column-definitions";
 import { dummyRows } from "./mock-row-data";
-import { Text } from "@nextui-org/react";
 
 interface RowData {
   key: string;

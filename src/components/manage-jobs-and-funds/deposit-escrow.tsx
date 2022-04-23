@@ -1,15 +1,32 @@
-import { Card, Spacer, Input, Loading, Button, Text } from "@nextui-org/react";
+import {
+  Card,
+  Spacer,
+  Input,
+  Loading,
+  Button,
+  Text,
+  FormElement,
+} from "@nextui-org/react";
 import React, { useState } from "react";
 
 export const DepositEscrow: React.FC = () => {
   const [loading, setLoading] = useState(false);
+  const [value, setValue] = useState("");
 
   const handleSubmit = () => {
-    setLoading(true);
+    if (!value) {
+      alert("Please provide a deposit amount");
+    } else {
+      setLoading(true);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<FormElement>) => {
+    setValue(e.target.value);
   };
 
   return (
-    <Card css={{ mw: "400px" }}>
+    <Card>
       <Spacer />
       <Text h3>Deposit To Escrow</Text>
       <Spacer />
@@ -17,16 +34,18 @@ export const DepositEscrow: React.FC = () => {
       <Input
         type="number"
         label="Amount to deposit"
+        value={value}
+        onChange={handleChange}
         placeholder=""
-        clearable
+        clearable={!loading}
         bordered
-        labelRight="BNB"
+        labelLeft="BNB"
         disabled={loading}
         contentRight={loading && <Loading size="xs" />}
       />
       <Spacer />
       <Button disabled={loading} onClick={handleSubmit}>
-        Deposit
+        {loading ? "Awaiting signature..." : "Deposit"}
       </Button>
       <Spacer />
     </Card>
