@@ -44,7 +44,7 @@ export const DepositEscrow: React.FC = () => {
         contentRight={loading && <Loading size="xs" />}
       />
       <Spacer />
-      <Button disabled={loading} onClick={handleSubmit}>
+      <Button disabled={loading} onClick={handleSubmit} shadow>
         {loading ? "Awaiting signature..." : "Deposit"}
       </Button>
       <Spacer />

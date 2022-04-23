@@ -43,7 +43,7 @@ export const WithdrawEscrow: React.FC = () => {
         contentRight={loading && <Loading size="xs" />}
       />
       <Spacer />
-      <Button disabled={loading} onClick={handleSubmit}>
+      <Button disabled={loading} onClick={handleSubmit} shadow>
         {loading ? "Awaiting signature..." : "Withdraw"}
       </Button>
       <Spacer />
