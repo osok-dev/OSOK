@@ -7,15 +7,18 @@ import {
   Text,
   FormElement,
 } from "@nextui-org/react";
+import { useEthers } from "@usedapp/core";
 import React, { useState } from "react";
-import { useEscrowBalance } from "../../hooks";
+import { useEscrowBalance, useEscrowExists } from "../../hooks";
 import { formatBalance } from "../../utils";
 
 export const WithdrawEscrow: React.FC = () => {
   const [loading, setLoading] = useState(false);
+  const { account } = useEthers();
   const [value, setValue] = useState("");
   const escrowBalance = useEscrowBalance();
   const balanceDisplayValue = formatBalance(escrowBalance);
+  const escrowExists = useEscrowExists();
 
   const handleSubmit = () => {
     if (!value) {
@@ -32,7 +35,7 @@ export const WithdrawEscrow: React.FC = () => {
   return (
     <Card>
       <Spacer />
-      <Text h3>Withdraw From Escrow</Text>
+      <Text h3>Withdraw from Escrow</Text>
       <Spacer />
       <Input
         type="number"
@@ -43,12 +46,16 @@ export const WithdrawEscrow: React.FC = () => {
         clearable={!loading}
         bordered
         labelLeft="BNB"
-        disabled={loading}
+        disabled={loading || !escrowExists || !account}
         contentRight={loading && <Loading size="xs" />}
         helperText={`Escrow balance: ${balanceDisplayValue}`}
       />
       <Spacer y={2} />
-      <Button disabled={loading} onClick={handleSubmit} shadow>
+      <Button
+        disabled={loading || !escrowExists || !account}
+        onClick={handleSubmit}
+        shadow
+      >
         {loading ? "Awaiting signature..." : "Withdraw"}
       </Button>
       <Spacer />

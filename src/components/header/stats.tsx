@@ -14,10 +14,10 @@ export const Stats: React.FC = () => {
   return (
     <div>
       <Text size={14} css={{ fontFamily: "$mono", textAlign: "right" }}>
-        ESCROW BALANCE: {escrowDisplayValue}
+        {account ? `ESCROW BALANCE: ${escrowDisplayValue}` : <>&nbsp;</>}
       </Text>
       <Text size={14} css={{ fontFamily: "$mono", textAlign: "right" }}>
-        WALLET BALANCE: {walletDisplayValue}
+        {account ? `WALLET BALANCE: ${walletDisplayValue}` : <>&nbsp;</>}
       </Text>
     </div>
   );

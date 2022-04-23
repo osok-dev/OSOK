@@ -4,11 +4,8 @@ import { Text } from "@nextui-org/react";
 
 import { WalletConnect } from "./wallet-connect";
 import { Stats } from "./stats";
-import { useEthers } from "@usedapp/core";
 
 export const Header: React.FC = () => {
-  const { account } = useEthers();
-
   return (
     <div>
       <Row justify="space-between" align="center" css={{ marginTop: 10 }}>
@@ -26,7 +23,7 @@ export const Header: React.FC = () => {
       </Row>
 
       <Row justify="flex-end" align="center">
-        {account && <Stats />}
+        <Stats />
       </Row>
     </div>
   );

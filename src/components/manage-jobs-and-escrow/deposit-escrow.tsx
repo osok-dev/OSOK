@@ -9,12 +9,14 @@ import {
 } from "@nextui-org/react";
 import { useEtherBalance, useEthers } from "@usedapp/core";
 import React, { useState } from "react";
+import { useEscrowExists } from "../../hooks";
 import { formatBalance } from "../../utils";
 
 export const DepositEscrow: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [value, setValue] = useState("");
   const { account } = useEthers();
+  const escrowExists = useEscrowExists();
 
   const handleSubmit = () => {
     if (!value) {
@@ -34,7 +36,7 @@ export const DepositEscrow: React.FC = () => {
   return (
     <Card>
       <Spacer />
-      <Text h3>Deposit To Escrow</Text>
+      <Text h3>Deposit to Escrow</Text>
       <Spacer />
 
       <Input
@@ -46,12 +48,16 @@ export const DepositEscrow: React.FC = () => {
         clearable={!loading}
         bordered
         labelLeft="BNB"
-        disabled={loading}
+        disabled={loading || !escrowExists || !account}
         contentRight={loading && <Loading size="xs" />}
         helperText={`Wallet balance: ${balanceDisplayValue}`}
       />
       <Spacer y={2} />
-      <Button disabled={loading} onClick={handleSubmit} shadow>
+      <Button
+        disabled={loading || !escrowExists || !account}
+        onClick={handleSubmit}
+        shadow
+      >
         {loading ? "Awaiting signature..." : "Deposit"}
       </Button>
       <Spacer />

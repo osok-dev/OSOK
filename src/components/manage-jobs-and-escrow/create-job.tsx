@@ -9,11 +9,13 @@ import {
 import React, { useState } from "react";
 import { Text } from "@nextui-org/react";
 import { useEthers } from "@usedapp/core";
+import { useEscrowExists } from "../../hooks";
 
 export const CreateJob: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [value, setValue] = useState("");
-  const { chainId } = useEthers();
+  const { chainId, account } = useEthers();
+  const escrowExists = useEscrowExists();
 
   const handleSubmit = () => {
     if (!value) {
@@ -43,7 +45,7 @@ export const CreateJob: React.FC = () => {
           placeholder=""
           clearable={!loading}
           bordered
-          disabled={loading}
+          disabled={loading || !escrowExists || !account}
           contentRight={loading && <Loading size="xs" />}
           helperText={
             correctChain
@@ -53,7 +55,12 @@ export const CreateJob: React.FC = () => {
           color={correctChain ? "default" : "error"}
         />
         <Spacer y={2} />
-        <Button disabled={loading} onClick={handleSubmit} shadow auto>
+        <Button
+          disabled={loading || !escrowExists || !account}
+          onClick={handleSubmit}
+          shadow
+          auto
+        >
           {loading ? "Awaiting signature..." : "Submit"}
         </Button>
         <Spacer />
