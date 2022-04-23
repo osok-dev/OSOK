@@ -1,7 +1,8 @@
-import { Table } from "@nextui-org/react";
+import { Spacer, Table } from "@nextui-org/react";
 import React from "react";
 import { colDefs } from "./column-definitions";
 import { dummyRows } from "./mock-row-data";
+import { Text } from "@nextui-org/react";
 
 interface RowData {
   key: string;
@@ -17,12 +18,11 @@ interface RowData {
   gasCost: number;
 }
 
-export const Overview: React.FC = () => {
+export const OverviewTable: React.FC = () => {
   return (
     <>
-      <h1>Overview</h1>
-
       <Table
+        aria-label="Overview of jobs"
         css={{
           height: "auto",
           minWidth: "100%",

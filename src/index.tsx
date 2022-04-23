@@ -5,12 +5,17 @@ import { App } from "./components/App";
 // import reportWebVitals from "./reportWebVitals";
 import { DAppProvider } from "@usedapp/core";
 import { NextUIProvider } from "@nextui-org/react";
+import { HashRouter, Routes, Route } from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
     <DAppProvider config={{}}>
       <NextUIProvider>
-        <App />
+        <HashRouter basename="/">
+          <Routes>
+            <Route path="/" element={<App />} />
+          </Routes>
+        </HashRouter>
       </NextUIProvider>
     </DAppProvider>
   </React.StrictMode>,
