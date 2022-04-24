@@ -45,7 +45,6 @@ export const WalletConnect: React.FC = () => {
             color="gradient"
             auto
             disabled={connectingWallet && !account}
-            shadow
           >
             {connectingWallet ? "Connecting..." : "Connect wallet"}
           </Button>

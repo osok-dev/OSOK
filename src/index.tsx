@@ -1,21 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import { App } from "./components/App";
 // import reportWebVitals from "./reportWebVitals";
 import { DAppProvider } from "@usedapp/core";
 import { NextUIProvider } from "@nextui-org/react";
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { App } from "./components/app";
 
 ReactDOM.render(
   <React.StrictMode>
     <DAppProvider config={{}}>
       <NextUIProvider>
-        <HashRouter basename="/">
-          <Routes>
-            <Route path="/" element={<App />} />
-          </Routes>
-        </HashRouter>
+        <App />
       </NextUIProvider>
     </DAppProvider>
   </React.StrictMode>,
