@@ -1,7 +1,7 @@
 import { Button, Row } from "@nextui-org/react";
 import React from "react";
 import { Text } from "@nextui-org/react";
-
+import { MdLaunch } from "react-icons/md";
 import { WalletConnect } from "./wallet-connect";
 import { Stats } from "./stats";
 import { Link } from "react-router-dom";
@@ -30,7 +30,8 @@ export const Header: React.FC<Props> = ({ isLandingPage }) => {
         {isLandingPage ? (
           <Link to="/app">
             <Button color="gradient" auto>
-              Launch App
+              Launch App &nbsp;
+              <MdLaunch />
             </Button>
           </Link>
         ) : (

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useEthers } from "@usedapp/core";
 import { Button } from "@nextui-org/react";
+import { BsLightningChargeFill } from "react-icons/bs";
 
 export const WalletConnect: React.FC = () => {
   const { activateBrowserWallet, deactivate, account } = useEthers();
@@ -46,7 +47,14 @@ export const WalletConnect: React.FC = () => {
             auto
             disabled={connectingWallet && !account}
           >
-            {connectingWallet ? "Connecting..." : "Connect wallet"}
+            {connectingWallet ? (
+              "Connecting..."
+            ) : (
+              <>
+                Connect wallet &nbsp;
+                <BsLightningChargeFill />
+              </>
+            )}
           </Button>
         </div>
       )}
