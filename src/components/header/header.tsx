@@ -29,7 +29,7 @@ export const Header: React.FC<Props> = ({ isLandingPage }) => {
 
         {isLandingPage ? (
           <Link to="/app">
-            <Button color="gradient" auto>
+            <Button color="gradient" auto rounded>
               Launch App &nbsp;
               <MdLaunch />
             </Button>
@@ -40,7 +40,7 @@ export const Header: React.FC<Props> = ({ isLandingPage }) => {
       </Row>
 
       <Row justify="flex-end" align="center">
-        <Stats />
+        {!isLandingPage && <Stats />}
       </Row>
     </div>
   );

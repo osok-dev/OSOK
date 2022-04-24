@@ -11,6 +11,7 @@ import { useEtherBalance, useEthers } from "@usedapp/core";
 import React, { useState } from "react";
 import { useEscrowExists } from "../../hooks";
 import { formatBalance } from "../../utils";
+import { BlurredCoverWithConnect } from "../common";
 
 export const DepositEscrow: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -48,19 +49,16 @@ export const DepositEscrow: React.FC = () => {
         clearable={!loading}
         bordered
         labelLeft="BNB"
-        disabled={loading || !escrowExists || !account}
+        disabled={loading || !escrowExists}
         contentRight={loading && <Loading size="xs" />}
         helperText={`Wallet balance: ${balanceDisplayValue}`}
       />
       <Spacer y={2} />
-      <Button
-        disabled={loading || !escrowExists || !account}
-        onClick={handleSubmit}
-        shadow
-      >
+      <Button disabled={loading || !escrowExists} onClick={handleSubmit} shadow>
         {loading ? "Awaiting signature..." : "Deposit"}
       </Button>
       <Spacer />
+      {!account && <BlurredCoverWithConnect />}
     </Card>
   );
 };

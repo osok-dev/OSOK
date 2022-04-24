@@ -11,6 +11,7 @@ import { useEthers } from "@usedapp/core";
 import React, { useState } from "react";
 import { useEscrowBalance, useEscrowExists } from "../../hooks";
 import { formatBalance } from "../../utils";
+import { BlurredCoverWithConnect } from "../common";
 
 export const WithdrawEscrow: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -46,19 +47,16 @@ export const WithdrawEscrow: React.FC = () => {
         clearable={!loading}
         bordered
         labelLeft="BNB"
-        disabled={loading || !escrowExists || !account}
+        disabled={loading || !escrowExists}
         contentRight={loading && <Loading size="xs" />}
         helperText={`Escrow balance: ${balanceDisplayValue}`}
       />
       <Spacer y={2} />
-      <Button
-        disabled={loading || !escrowExists || !account}
-        onClick={handleSubmit}
-        shadow
-      >
+      <Button disabled={loading || !escrowExists} onClick={handleSubmit} shadow>
         {loading ? "Awaiting signature..." : "Withdraw"}
       </Button>
       <Spacer />
+      {!account && <BlurredCoverWithConnect />}
     </Card>
   );
 };

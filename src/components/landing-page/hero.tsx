@@ -49,7 +49,7 @@ export const Hero: React.FC = () => {
         <Spacer y={2} />
         <Row justify="center">
           <Link to="/app">
-            <Button size="xl" color="gradient">
+            <Button size="xl" color="gradient" rounded>
               Give it a spin
             </Button>
           </Link>

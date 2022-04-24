@@ -35,6 +35,7 @@ export const WalletConnect: React.FC = () => {
             onClick={deactivate}
             auto
             css={{ fontFamily: "$mono" }}
+            rounded
           >
             {accountDisplayName}
           </Button>
@@ -46,6 +47,7 @@ export const WalletConnect: React.FC = () => {
             color="gradient"
             auto
             disabled={connectingWallet && !account}
+            rounded
           >
             {connectingWallet ? (
               "Connecting..."

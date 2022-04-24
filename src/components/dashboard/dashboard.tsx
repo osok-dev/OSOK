@@ -12,17 +12,15 @@ export const Dashboard: React.FC = () => {
     <Container>
       <Header isLandingPage={false} />
 
-      {escrowExists && (
-        <>
-          {" "}
-          <Spacer y={2} />
-          <Text weight="bold" h2 size={48}>
-            Overview
-          </Text>
-          <Spacer />
-          <OverviewTable />
-        </>
-      )}
+      <>
+        {" "}
+        <Spacer y={2} />
+        <Text weight="bold" h2 size={48}>
+          Overview
+        </Text>
+        <Spacer />
+        <OverviewTable />
+      </>
 
       <Spacer y={2} />
       <Text weight="bold" h2 size={48}>

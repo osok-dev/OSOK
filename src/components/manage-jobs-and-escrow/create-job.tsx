@@ -10,6 +10,7 @@ import React, { useState } from "react";
 import { Text } from "@nextui-org/react";
 import { useEthers } from "@usedapp/core";
 import { useEscrowExists } from "../../hooks";
+import { BlurredCoverWithConnect } from "../common";
 
 export const CreateJob: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -33,7 +34,7 @@ export const CreateJob: React.FC = () => {
 
   return (
     <>
-      <Card>
+      <Card css={{ position: "relative" }}>
         <Spacer />
         <Text h3>Create Job</Text>
         <Spacer />
@@ -45,7 +46,7 @@ export const CreateJob: React.FC = () => {
           placeholder=""
           clearable={!loading}
           bordered
-          disabled={loading || !escrowExists || !account}
+          disabled={loading || !escrowExists}
           contentRight={loading && <Loading size="xs" />}
           helperText={
             correctChain
@@ -56,7 +57,7 @@ export const CreateJob: React.FC = () => {
         />
         <Spacer y={2} />
         <Button
-          disabled={loading || !escrowExists || !account}
+          disabled={loading || !escrowExists}
           onClick={handleSubmit}
           shadow
           auto
@@ -64,6 +65,7 @@ export const CreateJob: React.FC = () => {
           {loading ? "Awaiting signature..." : "Submit"}
         </Button>
         <Spacer />
+        {!account && <BlurredCoverWithConnect />}
       </Card>
     </>
   );

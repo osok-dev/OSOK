@@ -10,6 +10,7 @@ import {
 import { useEtherBalance, useEthers } from "@usedapp/core";
 import React, { useState } from "react";
 import { formatBalance } from "../../utils";
+import { BlurredCoverWithConnect } from "../common";
 
 export const CreateEscrow: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -42,15 +43,16 @@ export const CreateEscrow: React.FC = () => {
         clearable={!loading}
         bordered
         labelLeft="BNB"
-        disabled={loading || !account}
+        disabled={loading}
         contentRight={loading && <Loading size="xs" />}
         helperText={`Wallet balance: ${balanceDisplayValue}`}
       />
       <Spacer y={2} />
-      <Button disabled={loading || !account} onClick={handleSubmit} shadow>
+      <Button disabled={loading} onClick={handleSubmit} shadow>
         {loading ? "Awaiting signature..." : "Create"}
       </Button>
       <Spacer />
+      {!account && <BlurredCoverWithConnect />}
     </Card>
   );
 };

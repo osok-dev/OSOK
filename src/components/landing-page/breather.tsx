@@ -47,7 +47,7 @@ export const Breather: React.FC = () => {
         <Spacer y={2} />
         <Row justify="center">
           <Link to="/app">
-            <Button size="xl" color="gradient">
+            <Button size="xl" color="gradient" rounded>
               Get started
             </Button>
           </Link>
