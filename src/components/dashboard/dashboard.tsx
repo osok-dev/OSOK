@@ -62,23 +62,31 @@ export const Dashboard: React.FC = () => {
             </>
           )}
 
-          <Spacer y={2} />
-          <Text weight="bold" h2 size={48}>
-            Manage Jobs and Escrow
-          </Text>
-          <Spacer />
-          <ManageJobsAndEscrow
-            escrowExists={escrowExists}
-            hasActiveTarget={hasActiveTarget}
-          />
+          {escrowExists && (
+            <>
+              <Spacer y={2} />
+              <Text weight="bold" h2 size={48}>
+                Manage Jobs and Escrow
+              </Text>
+              <Spacer />
+              <ManageJobsAndEscrow
+                escrowExists={escrowExists}
+                hasActiveTarget={hasActiveTarget}
+              />
+            </>
+          )}
 
-          <Spacer y={2} />
-          <Text weight="bold" h2 size={48}>
-            Overview
-          </Text>
-          <Spacer />
-          <OverviewTable />
-          <Spacer y={5} />
+          {escrowExists && (
+            <>
+              <Spacer y={2} />
+              <Text weight="bold" h2 size={48}>
+                Overview
+              </Text>
+              <Spacer />
+              <OverviewTable />
+              <Spacer y={5} />
+            </>
+          )}
         </>
       )}
     </Container>
