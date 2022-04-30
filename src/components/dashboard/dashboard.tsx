@@ -3,10 +3,10 @@ import { Header } from "../header";
 import { Container, Spacer, Text } from "@nextui-org/react";
 import { ManageJobsAndEscrow } from "../manage-jobs-and-escrow";
 import { OverviewTable } from "../overview-table";
-import { useEscrowExists } from "../../hooks";
+import { useHasVault } from "../../hooks";
 
 export const Dashboard: React.FC = () => {
-  const escrowExists = useEscrowExists();
+  const escrowExists = useHasVault();
 
   return (
     <Container>
@@ -27,7 +27,7 @@ export const Dashboard: React.FC = () => {
         Manage Jobs and Escrow
       </Text>
       <Spacer />
-      <ManageJobsAndEscrow />
+      <ManageJobsAndEscrow escrowExists={escrowExists} />
     </Container>
   );
 };

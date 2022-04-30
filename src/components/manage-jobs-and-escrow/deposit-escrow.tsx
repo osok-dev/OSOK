@@ -9,15 +9,17 @@ import {
 } from "@nextui-org/react";
 import { useEtherBalance, useEthers } from "@usedapp/core";
 import React, { useState } from "react";
-import { useEscrowExists } from "../../hooks";
 import { formatBalance } from "../../utils";
 import { BlurredCoverWithConnect } from "../common";
 
-export const DepositEscrow: React.FC = () => {
+interface Props {
+  escrowExists: boolean;
+}
+
+export const DepositEscrow: React.FC<Props> = ({ escrowExists }) => {
   const [loading, setLoading] = useState(false);
   const [value, setValue] = useState("");
   const { account } = useEthers();
-  const escrowExists = useEscrowExists();
 
   const handleSubmit = () => {
     if (!value) {

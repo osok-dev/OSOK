@@ -1,2 +1,2 @@
 export * from "./useEscrowBalance";
-export * from "./useEscrowExists";
+export * from "./useHasVault";

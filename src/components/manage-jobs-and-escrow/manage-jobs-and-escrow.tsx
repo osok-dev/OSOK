@@ -1,11 +1,14 @@
 import React from "react";
 import { Grid } from "@nextui-org/react";
 
-import { useEscrowExists } from "../../hooks";
 import { CreateJob } from "./create-job";
 import { CreateEscrow } from "./create-escrow";
 import { DepositEscrow } from "./deposit-escrow";
 import { WithdrawEscrow } from "./withdraw-escrow";
+
+interface Props {
+  escrowExists: boolean;
+}
 
 const getGridProps = (escrowExists: boolean) => {
   if (escrowExists) {
@@ -25,14 +28,13 @@ const getGridProps = (escrowExists: boolean) => {
   };
 };
 
-export const ManageJobsAndEscrow: React.FC = () => {
-  const escrowExists = useEscrowExists();
+export const ManageJobsAndEscrow: React.FC<Props> = ({ escrowExists }) => {
   const gridProps = getGridProps(escrowExists);
 
   return (
     <Grid.Container gap={2} css={{ paddingLeft: 0, paddingRight: 0 }}>
       <Grid {...gridProps}>
-        <CreateJob />
+        <CreateJob escrowExists={escrowExists} />
       </Grid>
       {!escrowExists && (
         <Grid {...gridProps}>
@@ -40,10 +42,10 @@ export const ManageJobsAndEscrow: React.FC = () => {
         </Grid>
       )}
       <Grid {...gridProps}>
-        <DepositEscrow />
+        <DepositEscrow escrowExists={escrowExists} />
       </Grid>
       <Grid {...gridProps}>
-        <WithdrawEscrow />
+        <WithdrawEscrow escrowExists={escrowExists} />
       </Grid>
     </Grid.Container>
   );

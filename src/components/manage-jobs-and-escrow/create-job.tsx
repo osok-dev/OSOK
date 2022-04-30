@@ -9,14 +9,16 @@ import {
 import React, { useState } from "react";
 import { Text } from "@nextui-org/react";
 import { useEthers } from "@usedapp/core";
-import { useEscrowExists } from "../../hooks";
 import { BlurredCoverWithConnect } from "../common";
 
-export const CreateJob: React.FC = () => {
+interface Props {
+  escrowExists: boolean;
+}
+
+export const CreateJob: React.FC<Props> = ({ escrowExists }) => {
   const [loading, setLoading] = useState(false);
   const [value, setValue] = useState("");
   const { chainId, account } = useEthers();
-  const escrowExists = useEscrowExists();
 
   const handleSubmit = () => {
     if (!value) {
