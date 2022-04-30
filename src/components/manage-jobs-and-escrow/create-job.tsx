@@ -9,28 +9,34 @@ import {
 import React, { useState } from "react";
 import { Text } from "@nextui-org/react";
 import { useEthers } from "@usedapp/core";
-import { useEscrowExists } from "../../hooks";
 import { BlurredCoverWithConnect } from "../common";
 
-export const CreateJob: React.FC = () => {
+interface Props {
+  escrowExists: boolean;
+}
+
+export const CreateJob: React.FC<Props> = ({ escrowExists }) => {
   const [loading, setLoading] = useState(false);
-  const [value, setValue] = useState("");
-  const { chainId, account } = useEthers();
-  const escrowExists = useEscrowExists();
+  const [addressValue, setAddressValue] = useState("");
+  const [slippageValue, setSlippageValue] = useState(0);
+  const { account } = useEthers();
 
   const handleSubmit = () => {
-    if (!value) {
+    if (!addressValue) {
       alert("Please provide a contact address");
     } else {
       setLoading(true);
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<FormElement>) => {
-    setValue(e.target.value);
+  const handleAddressChange = (e: React.ChangeEvent<FormElement>) => {
+    setAddressValue(e.target.value);
   };
 
-  const correctChain = chainId === 56;
+  const handleSlippageChange = (e: React.ChangeEvent<FormElement>) => {
+    const slippage = Number.parseInt(e.target.value, 10);
+    setSlippageValue(slippage);
+  };
 
   return (
     <>
@@ -41,19 +47,26 @@ export const CreateJob: React.FC = () => {
         <Input
           type="text"
           label="Contract address"
-          value={value}
-          onChange={handleChange}
+          value={addressValue}
+          onChange={handleAddressChange}
           placeholder=""
           clearable={!loading}
           bordered
-          disabled={loading || !escrowExists}
+          // disabled={loading || !escrowExists}
           contentRight={loading && <Loading size="xs" />}
-          helperText={
-            correctChain
-              ? "BNB Mainnet only"
-              : "WARNING: Not connected to BNB mainnet"
-          }
-          color={correctChain ? "default" : "error"}
+        />
+        <Spacer />
+
+        <Input
+          type="number"
+          label="Slippage (%)"
+          value={slippageValue}
+          onChange={handleSlippageChange}
+          placeholder=""
+          clearable={!loading}
+          bordered
+          // disabled={loading || !escrowExists}
+          contentRight={loading && <Loading size="xs" />}
         />
         <Spacer y={2} />
         <Button
