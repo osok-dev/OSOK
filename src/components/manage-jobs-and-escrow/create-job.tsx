@@ -34,10 +34,9 @@ export const CreateJob: React.FC<Props> = ({ escrowExists }) => {
       alert("Please provide a contact address");
     } else {
       setLoading(true);
-      // const _target = addressValue;
+      const target = addressValue;
 
-      // TODO: something not right here
-      // setTarget(_target);
+      setTarget(target);
     }
   };
 
@@ -52,6 +51,7 @@ export const CreateJob: React.FC<Props> = ({ escrowExists }) => {
 
   // TODO: better handling here
   useEffect(() => {
+    console.log(status);
     if (status === "Exception") {
       setLoading(false);
       alert(`There was an issue making this transaction. ${errorMessage}`);

@@ -27,10 +27,9 @@ export const ActiveJob: React.FC = () => {
     setVisible(false);
     setLoading(true);
 
-    // const _target = "0x0";
+    const target = "0x0000000000000000000000000000000000000000";
 
-    // TODO: implement
-    // setTarget(_target);
+    setTarget(target);
   };
   const closeHandler = () => {
     setVisible(false);
