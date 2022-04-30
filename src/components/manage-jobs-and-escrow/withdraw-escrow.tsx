@@ -6,12 +6,15 @@ import {
   Button,
   Text,
   FormElement,
+  Row,
+  Tooltip,
 } from "@nextui-org/react";
 import { useEthers } from "@usedapp/core";
 import React, { useState } from "react";
 import { useEscrowBalance } from "../../hooks";
 import { formatBalance } from "../../utils";
 import { BlurredCoverWithConnect } from "../common";
+import { FiInfo } from "react-icons/fi";
 
 interface Props {
   escrowExists: boolean;
@@ -39,7 +42,15 @@ export const WithdrawEscrow: React.FC<Props> = ({ escrowExists }) => {
   return (
     <Card>
       <Spacer />
-      <Text h3>Withdraw from Escrow</Text>
+      <Text h3></Text>
+      <Text h3>
+        <Row align="center">
+          <>Withdraw from Escrow &nbsp;</>
+          <Tooltip content={"This will withdraw all funds"}>
+            <FiInfo />
+          </Tooltip>
+        </Row>
+      </Text>
       <Spacer />
       <Input
         type="number"

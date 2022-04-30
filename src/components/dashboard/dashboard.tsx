@@ -13,12 +13,16 @@ export const Dashboard: React.FC = () => {
     <Container>
       <Header isLandingPage={false} />
 
-      <Spacer y={2} />
-      <Text weight="bold" h2 size={48}>
-        Getting started
-      </Text>
-      <Spacer />
-      <GettingStarted />
+      {!escrowExists && (
+        <>
+          <Spacer y={2} />
+          <Text weight="bold" h2 size={48}>
+            Getting started
+          </Text>
+          <Spacer />
+          <GettingStarted />
+        </>
+      )}
 
       <Spacer y={2} />
       <Text weight="bold" h2 size={48}>
