@@ -6,9 +6,12 @@ import {
   Button,
   Text,
   FormElement,
+  Row,
+  Tooltip,
 } from "@nextui-org/react";
 import { useEtherBalance, useEthers } from "@usedapp/core";
 import React, { useState } from "react";
+import { FiInfo } from "react-icons/fi";
 import { formatBalance } from "../../utils";
 import { BlurredCoverWithConnect } from "../common";
 
@@ -31,7 +34,15 @@ export const CreateEscrow: React.FC = () => {
   return (
     <Card>
       <Spacer />
-      <Text h3>1. Create Escrow</Text>
+      <Text h3></Text>
+      <Text h3>
+        <Row align="center">
+          <>1. Create Escrow &nbsp;</>
+          <Tooltip content={"You can deposit funds now or later"}>
+            <FiInfo />
+          </Tooltip>
+        </Row>
+      </Text>
       <Spacer />
 
       <Input

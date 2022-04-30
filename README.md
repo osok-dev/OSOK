@@ -17,3 +17,4 @@
 - tests
 - tooltips for each action
 - optimise images / consume from cdn
+- standardise icon usage to one library

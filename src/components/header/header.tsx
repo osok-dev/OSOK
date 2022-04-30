@@ -5,11 +5,15 @@ import { MdLaunch } from "react-icons/md";
 import { WalletConnect } from "./wallet-connect";
 import { Stats } from "./stats";
 import { Link } from "react-router-dom";
+import { useEthers } from "@usedapp/core";
 
 interface Props {
   isLandingPage: boolean;
 }
 export const Header: React.FC<Props> = ({ isLandingPage }) => {
+  const { chainId } = useEthers();
+
+  const isTestnet = chainId === 97;
   const logoCss = isLandingPage
     ? {
         color: "#FFFFFFDD",
@@ -27,6 +31,19 @@ export const Header: React.FC<Props> = ({ isLandingPage }) => {
           </Text>
         </Link>
 
+        {isTestnet && (
+          <Text
+            css={{
+              color: "white",
+              background: "$red500",
+              padding: "0 20px",
+              borderRadius: 4,
+            }}
+            weight="bold"
+          >
+            BSC TESTNET
+          </Text>
+        )}
         {isLandingPage ? (
           <Link to="/app">
             <Button color="gradient" auto rounded>
