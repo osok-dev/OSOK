@@ -10,8 +10,8 @@ const contractInterface = new ethers.utils.Interface(abi);
 export function useWithdrawFromVault() {
   const vaultAddress = useGetVaultAddress();
   const contract = new Contract(vaultAddress, contractInterface);
-  const { state, send } = useContractFunction(contract, "withdraw", {
+  const { send, state } = useContractFunction(contract, "withdraw", {
     transactionName: "Withdraw",
   });
-  return { state, send };
+  return { send, state };
 }

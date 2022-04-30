@@ -19,6 +19,7 @@ import {
 import { formatAddress, formatBalance } from "../../utils";
 import { BlurredCoverWithConnect } from "../common";
 import { FiInfo } from "react-icons/fi";
+import { utils } from "ethers";
 
 interface Props {
   escrowExists: boolean;
@@ -42,8 +43,9 @@ export const WithdrawEscrow: React.FC<Props> = ({ escrowExists }) => {
       alert("Please provide a withdraw amount");
     } else {
       setLoading(true);
-
-      const _amount = value;
+      
+      const _amount = utils.parseEther(value.toString());
+      console.log("HERE", _amount);
       send(_amount);
     }
   };
