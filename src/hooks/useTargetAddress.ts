@@ -14,7 +14,7 @@ export function useTargetAddress(): string {
   const { value, error } =
     useCall({
       contract,
-      method: "targetAddress",
+      method: "getTarget",
       args: [],
     }) ?? {};
   if (error) {

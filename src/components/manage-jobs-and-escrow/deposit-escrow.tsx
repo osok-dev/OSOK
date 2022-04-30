@@ -52,7 +52,6 @@ export const DepositEscrow: React.FC<Props> = ({ escrowExists }) => {
   const balanceDisplayValue = formatBalance(etherBalance);
 
   useEffect(() => {
-    console.log("status", status);
     if (status === "Exception") {
       setLoading(false);
       alert(`There was an issue making this transaction. ${errorMessage}`);

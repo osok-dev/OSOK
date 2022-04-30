@@ -13,6 +13,20 @@
       "type": "constructor"
     },
     {
+      "inputs": [],
+      "name": "getTarget",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    },
+    {
       "anonymous": false,
       "inputs": [
         {

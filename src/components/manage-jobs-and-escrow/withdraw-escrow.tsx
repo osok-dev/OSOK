@@ -54,7 +54,6 @@ export const WithdrawEscrow: React.FC<Props> = ({ escrowExists }) => {
   };
 
   useEffect(() => {
-    console.log("status", status);
     if (status === "Exception") {
       setLoading(false);
       alert(`There was an issue making this transaction. ${errorMessage}`);

@@ -23,7 +23,7 @@ export const CreateJob: React.FC<Props> = ({ escrowExists }) => {
   const [loading, setLoading] = useState(false);
   const [loadingMessage, setLoadingMessage] = useState("Loading...");
   const [addressValue, setAddressValue] = useState("");
-  const [slippageValue, setSlippageValue] = useState(12);
+  // const [slippageValue, setSlippageValue] = useState(12);
   const { state, send: setTarget } = useSetTarget();
   const { status, errorMessage } = state;
 
@@ -44,14 +44,13 @@ export const CreateJob: React.FC<Props> = ({ escrowExists }) => {
     setAddressValue(e.target.value);
   };
 
-  const handleSlippageChange = (e: React.ChangeEvent<FormElement>) => {
-    const slippage = Number.parseInt(e.target.value, 10);
-    setSlippageValue(slippage);
-  };
+  // const handleSlippageChange = (e: React.ChangeEvent<FormElement>) => {
+  //   const slippage = Number.parseInt(e.target.value, 10);
+  //   setSlippageValue(slippage);
+  // };
 
   // TODO: better handling here
   useEffect(() => {
-    console.log(status);
     if (status === "Exception") {
       setLoading(false);
       alert(`There was an issue making this transaction. ${errorMessage}`);
@@ -97,7 +96,7 @@ export const CreateJob: React.FC<Props> = ({ escrowExists }) => {
         />
         <Spacer />
 
-        <Input
+        {/* <Input
           type="number"
           step={1}
           min={0}
@@ -105,12 +104,11 @@ export const CreateJob: React.FC<Props> = ({ escrowExists }) => {
           value={slippageValue}
           onChange={handleSlippageChange}
           placeholder=""
-          // clearable={!loading}
           bordered
           disabled={loading || !escrowExists}
           contentRight={loading && <Loading size="xs" />}
-        />
-        <Spacer y={2} />
+        /> */}
+        <Spacer />
         <Button
           disabled={loading || !escrowExists}
           onClick={handleSubmit}

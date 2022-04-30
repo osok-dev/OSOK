@@ -24,19 +24,12 @@ export const CreateEscrow: React.FC = () => {
   const { account } = useEthers();
   const { state, send } = useCreateVault();
 
-  console.log(state);
-
-  const { status, transaction, receipt, errorMessage, originalTransaction } =
-    state;
-
-  console.log(transaction, receipt, originalTransaction);
+  const { status, errorMessage } = state;
 
   const handleSubmit = () => {
     setLoading(true);
 
-    console.log("creating vault handleSubmit");
     if (value) {
-      console.log(value);
       const depositAmount = utils.parseEther(value.toString());
       send({ value: depositAmount });
     } else {
