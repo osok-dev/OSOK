@@ -43,10 +43,9 @@ export const WithdrawEscrow: React.FC<Props> = ({ escrowExists }) => {
       alert("Please provide a withdraw amount");
     } else {
       setLoading(true);
-      
-      const _amount = utils.parseEther(value.toString());
-      console.log("HERE", _amount);
-      send(_amount);
+
+      const amount = utils.parseEther(value.toString());
+      send(amount);
     }
   };
 

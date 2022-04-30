@@ -1,20 +1,25 @@
 import vaultFactoryContract from "../abi/VaultFactory.json";
 import { ethers } from "ethers";
 import { vaultFactoryContractAddress } from "../contracts";
-import { useContractCall, useEthers } from "@usedapp/core";
+import { useCall, useEthers } from "@usedapp/core";
+import { Contract } from "@ethersproject/contracts";
 
 const abi = vaultFactoryContract.abi;
 const contractInterface = new ethers.utils.Interface(abi);
+const contract = new Contract(vaultFactoryContractAddress, contractInterface);
 
 export function useGetVaultAddress(): string {
   const { account } = useEthers();
 
-  const [address]: any =
-    useContractCall({
-      abi: contractInterface,
-      address: vaultFactoryContractAddress,
+  const { value, error } =
+    useCall({
+      contract,
       method: "getVaultAddress",
       args: [account],
-    }) ?? [];
-  return address;
+    }) ?? {};
+  if (error) {
+    console.error(error.message);
+    // return undefined;
+  }
+  return value?.[0];
 }

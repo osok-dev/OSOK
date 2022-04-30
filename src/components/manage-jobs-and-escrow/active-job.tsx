@@ -2,7 +2,7 @@ import { Card, Spacer, Button, Text, Modal, Row } from "@nextui-org/react";
 import { useEthers } from "@usedapp/core";
 import React, { useEffect, useState } from "react";
 import { useVaultBalance, useTargetAddress, useSetTarget } from "../../hooks";
-import { formatAddress, formatBalance } from "../../utils";
+import { formatBalance } from "../../utils";
 import { BlurredCoverWithConnect } from "../common";
 
 export const ActiveJob: React.FC = () => {
@@ -14,8 +14,6 @@ export const ActiveJob: React.FC = () => {
   const { status, errorMessage } = state;
 
   const targetAddress = useTargetAddress();
-  const displayAddress = formatAddress(targetAddress);
-
   const escrowBalance = useVaultBalance();
   const balanceDisplayValue = formatBalance(escrowBalance);
 
@@ -64,7 +62,7 @@ export const ActiveJob: React.FC = () => {
       <Text h5>Target:</Text>
       <Spacer y={0.5} />
 
-      <Text css={{ fontFamily: "$mono" }}>{displayAddress}</Text>
+      <Text css={{ fontFamily: "$mono" }}>{targetAddress}</Text>
       <Text css={{ fontFamily: "$mono" }}>{balanceDisplayValue}</Text>
 
       <Spacer />
