@@ -7,15 +7,36 @@ export const QuickGuide: React.FC = () => {
     size: 34,
   };
   return (
-    <Card>
+    <Card css={{ paddingLeft: 20 }}>
       <Spacer />
-      <Text {...stepProps}>1. Create Escrow</Text>
+      <Text
+        css={{
+          textGradient: "45deg, $yellow500 -20%, $red500 50%",
+        }}
+        {...stepProps}
+      >
+        1. Create Escrow &nbsp;&nbsp;&nbsp;&#10132;
+      </Text>
       <Spacer />
 
-      <Text {...stepProps}>2. Deposit Funds</Text>
+      <Text
+        css={{
+          textGradient: "45deg, $purple500 -20%, $pink500 50%",
+        }}
+        {...stepProps}
+      >
+        2. Deposit Funds
+      </Text>
       <Spacer />
 
-      <Text {...stepProps}>3. Create Job</Text>
+      <Text
+        css={{
+          textGradient: "45deg, $blue500 -20%, $green500 50%",
+        }}
+        {...stepProps}
+      >
+        3. Create Job
+      </Text>
       <Spacer />
     </Card>
   );

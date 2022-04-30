@@ -7,11 +7,11 @@ import { Contract } from "@ethersproject/contracts";
 const abi = vaultContract.abi;
 const contractInterface = new ethers.utils.Interface(abi);
 
-export function useWithdrawFromVault() {
+export function useSetTarget() {
   const vaultAddress = useGetVaultAddress();
   const contract = new Contract(vaultAddress, contractInterface);
-  const { send, state } = useContractFunction(contract, "withdraw", {
-    transactionName: "Withdraw",
+  const { state, send } = useContractFunction(contract, "setTarget", {
+    transactionName: "Set Target",
   });
-  return { send, state };
+  return { state, send };
 }

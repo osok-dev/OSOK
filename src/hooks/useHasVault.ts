@@ -1,20 +1,20 @@
-// import exampleContractAbi from "../abi/ExampleContract.json";
-// import { ethers } from "ethers";
-// import { vaultFactoryContractAddress } from "../contracts";
-// import { useContractCall } from "@usedapp/core";
+import vaultFactoryContract from "../abi/VaultFactory.json";
+import { ethers } from "ethers";
+import { vaultFactoryContractAddress } from "../contracts";
+import { useContractCall, useEthers } from "@usedapp/core";
 
-// const simpleContractInterface = new ethers.utils.Interface(exampleContractAbi);
+const abi = vaultFactoryContract.abi;
+const contractInterface = new ethers.utils.Interface(abi);
 
 export function useHasVault(): boolean {
-  return false;
+  const { account } = useEthers();
 
-  // uncomment when addresses filled in contracts/index.ts
-  // const [hasVault]: any =
-  //   useContractCall({
-  //     abi: simpleContractInterface,
-  //     address: vaultFactoryContractAddress,
-  //     method: "hasVault",
-  //     args: [],
-  //   }) ?? [];
-  // return hasVault;
+  const [hasVault]: any =
+    useContractCall({
+      abi: contractInterface,
+      address: vaultFactoryContractAddress,
+      method: "hasVault",
+      args: [account],
+    }) ?? [];
+  return hasVault;
 }

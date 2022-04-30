@@ -13,6 +13,20 @@
       "type": "constructor"
     },
     {
+      "inputs": [],
+      "name": "getTarget",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    },
+    {
       "anonymous": false,
       "inputs": [
         {
@@ -5263,30 +5277,17 @@
   "ast": {
     "absolutePath": "project:/contracts/VaultFactory.sol",
     "exportedSymbols": {
-      "Context": [
-        126
-      ],
-      "Ownable": [
-        104
-      ],
-      "Vault": [
-        380
-      ],
-      "VaultFactory": [
-        470
-      ]
+      "Context": [126],
+      "Ownable": [104],
+      "Vault": [380],
+      "VaultFactory": [470]
     },
     "id": 471,
     "nodeType": "SourceUnit",
     "nodes": [
       {
         "id": 161,
-        "literals": [
-          "solidity",
-          "^",
-          "0.8",
-          ".0"
-        ],
+        "literals": ["solidity", "^", "0.8", ".0"],
         "nodeType": "PragmaDirective",
         "src": "0:23:3"
       },
@@ -5323,11 +5324,7 @@
         "contractKind": "contract",
         "fullyImplemented": true,
         "id": 380,
-        "linearizedBaseContracts": [
-          380,
-          104,
-          126
-        ],
+        "linearizedBaseContracts": [380, 104, 126],
         "name": "Vault",
         "nameLocation": "92:5:3",
         "nodeType": "ContractDefinition",
@@ -5812,10 +5809,7 @@
                       "id": 200,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [
-                        4294967278,
-                        4294967278
-                      ],
+                      "overloadedDeclarations": [4294967278, 4294967278],
                       "referencedDeclaration": 4294967278,
                       "src": "531:7:3",
                       "typeDescriptions": {
@@ -7460,9 +7454,7 @@
               "src": "2195:92:3",
               "statements": [
                 {
-                  "assignments": [
-                    357
-                  ],
+                  "assignments": [357],
                   "declarations": [
                     {
                       "constant": false,
@@ -7791,17 +7783,11 @@
           }
         ],
         "canonicalName": "VaultFactory",
-        "contractDependencies": [
-          380
-        ],
+        "contractDependencies": [380],
         "contractKind": "contract",
         "fullyImplemented": true,
         "id": 470,
-        "linearizedBaseContracts": [
-          470,
-          104,
-          126
-        ],
+        "linearizedBaseContracts": [470, 104, 126],
         "name": "VaultFactory",
         "nameLocation": "2827:12:3",
         "nodeType": "ContractDefinition",
@@ -8280,10 +8266,7 @@
                       "id": 415,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [
-                        4294967278,
-                        4294967278
-                      ],
+                      "overloadedDeclarations": [4294967278, 4294967278],
                       "referencedDeclaration": 4294967278,
                       "src": "3137:7:3",
                       "typeDescriptions": {
@@ -8447,9 +8430,7 @@
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
-                        "names": [
-                          "value"
-                        ],
+                        "names": ["value"],
                         "nodeType": "FunctionCallOptions",
                         "options": [
                           {

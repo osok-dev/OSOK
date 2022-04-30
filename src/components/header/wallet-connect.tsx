@@ -2,17 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useEthers } from "@usedapp/core";
 import { Button } from "@nextui-org/react";
 import { BsLightningChargeFill } from "react-icons/bs";
+import { formatAddress } from "../../utils";
 
 export const WalletConnect: React.FC = () => {
   const { activateBrowserWallet, deactivate, account } = useEthers();
   const [connectingWallet, setConnectingWallet] = useState(false);
 
-  const accountDisplayName =
-    account &&
-    `${account.slice(0, 6)}...${account.slice(
-      account.length - 4,
-      account.length
-    )}`;
+  const accountDisplayName = account && formatAddress(account);
 
   const handleConnect = () => {
     setConnectingWallet(true);
@@ -28,37 +24,33 @@ export const WalletConnect: React.FC = () => {
   return (
     <>
       {account ? (
-        <div>
-          <Button
-            bordered
-            color="gradient"
-            onClick={deactivate}
-            auto
-            css={{ fontFamily: "$mono" }}
-            rounded
-          >
-            {accountDisplayName}
-          </Button>
-        </div>
+        <Button
+          bordered
+          color="gradient"
+          onClick={deactivate}
+          auto
+          css={{ fontFamily: "$mono" }}
+          rounded
+        >
+          {accountDisplayName}
+        </Button>
       ) : (
-        <div>
-          <Button
-            onClick={handleConnect}
-            color="gradient"
-            auto
-            disabled={connectingWallet && !account}
-            rounded
-          >
-            {connectingWallet ? (
-              "Connecting..."
-            ) : (
-              <>
-                Connect wallet &nbsp;
-                <BsLightningChargeFill />
-              </>
-            )}
-          </Button>
-        </div>
+        <Button
+          onClick={handleConnect}
+          color="gradient"
+          auto
+          disabled={connectingWallet && !account}
+          rounded
+        >
+          {connectingWallet ? (
+            "Connecting..."
+          ) : (
+            <>
+              Connect wallet &nbsp;
+              <BsLightningChargeFill />
+            </>
+          )}
+        </Button>
       )}
     </>
   );

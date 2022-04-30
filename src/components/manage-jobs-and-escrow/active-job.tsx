@@ -1,12 +1,21 @@
 import { Card, Spacer, Button, Text, Modal, Row } from "@nextui-org/react";
 import { useEthers } from "@usedapp/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useVaultBalance, useTargetAddress, useSetTarget } from "../../hooks";
+import { formatBalance } from "../../utils";
 import { BlurredCoverWithConnect } from "../common";
 
 export const ActiveJob: React.FC = () => {
   const [loading, setLoading] = useState(false);
+  const [loadingMessage, setLoadingMessage] = useState("Loading...");
   const { account } = useEthers();
   const [visible, setVisible] = React.useState(false);
+  const { state, send: setTarget } = useSetTarget();
+  const { status, errorMessage } = state;
+
+  const targetAddress = useTargetAddress();
+  const escrowBalance = useVaultBalance();
+  const balanceDisplayValue = formatBalance(escrowBalance);
 
   const handleSubmit = () => {
     setVisible(true);
@@ -15,10 +24,34 @@ export const ActiveJob: React.FC = () => {
   const handleConfirm = () => {
     setVisible(false);
     setLoading(true);
+
+    const target = "0x0000000000000000000000000000000000000000";
+
+    setTarget(target);
   };
   const closeHandler = () => {
     setVisible(false);
   };
+
+  // TODO: better handling here
+  useEffect(() => {
+    if (status === "Exception") {
+      setLoading(false);
+      alert(`There was an issue making this transaction. ${errorMessage}`);
+    } else if (status === "PendingSignature") {
+      setLoading(true);
+      setLoadingMessage("Pending Signature...");
+    } else if (status === "None") {
+      setLoading(false);
+    } else if (status === "Fail") {
+      setLoading(false);
+      alert(`There was an issue making this transaction. ${errorMessage}`);
+    } else if (status === "Mining") {
+      setLoadingMessage("Mining...");
+    } else if (status === "Success") {
+      setLoading(false);
+    }
+  }, [status, errorMessage]);
 
   return (
     <Card>
@@ -26,15 +59,15 @@ export const ActiveJob: React.FC = () => {
       <Text h3>Active Job</Text>
       <Spacer />
 
-      <Text h5>Current job on address:</Text>
+      <Text h5>Target:</Text>
       <Spacer y={0.5} />
 
-      <Text css={{ fontFamily: "$mono" }}>0x234fds..432342</Text>
-      <Text css={{ fontFamily: "$mono" }}>1234 BNB </Text>
+      <Text css={{ fontFamily: "$mono" }}>{targetAddress}</Text>
+      <Text css={{ fontFamily: "$mono" }}>{balanceDisplayValue}</Text>
 
       <Spacer />
       <Button disabled={loading} onClick={handleSubmit} shadow color="error">
-        {loading ? "Awaiting signature..." : "Cancel Job"}
+        {loading ? loadingMessage : "Cancel Job"}
       </Button>
       <Spacer />
       {!account && <BlurredCoverWithConnect />}
