@@ -4,12 +4,15 @@ import {
   FormElement,
   Input,
   Loading,
+  Row,
   Spacer,
+  Tooltip,
 } from "@nextui-org/react";
 import React, { useState } from "react";
 import { Text } from "@nextui-org/react";
 import { useEthers } from "@usedapp/core";
 import { BlurredCoverWithConnect } from "../common";
+import { FiInfo } from "react-icons/fi";
 
 interface Props {
   escrowExists: boolean;
@@ -18,7 +21,7 @@ interface Props {
 export const CreateJob: React.FC<Props> = ({ escrowExists }) => {
   const [loading, setLoading] = useState(false);
   const [addressValue, setAddressValue] = useState("");
-  const [slippageValue, setSlippageValue] = useState(0);
+  const [slippageValue, setSlippageValue] = useState(12);
   const { account } = useEthers();
 
   const handleSubmit = () => {
@@ -42,7 +45,15 @@ export const CreateJob: React.FC<Props> = ({ escrowExists }) => {
     <>
       <Card css={{ position: "relative" }}>
         <Spacer />
-        <Text h3>Create Job</Text>
+        <Text h3>
+          <Row align="center">
+            <>Create Job &nbsp;</>
+            <Tooltip content={"This will consume all funds in the escrow"}>
+              <FiInfo />
+            </Tooltip>
+          </Row>
+        </Text>
+
         <Spacer />
         <Input
           type="text"
@@ -52,20 +63,22 @@ export const CreateJob: React.FC<Props> = ({ escrowExists }) => {
           placeholder=""
           clearable={!loading}
           bordered
-          // disabled={loading || !escrowExists}
+          disabled={loading || !escrowExists}
           contentRight={loading && <Loading size="xs" />}
         />
         <Spacer />
 
         <Input
           type="number"
+          step={1}
+          min={0}
           label="Slippage (%)"
           value={slippageValue}
           onChange={handleSlippageChange}
           placeholder=""
-          clearable={!loading}
+          // clearable={!loading}
           bordered
-          // disabled={loading || !escrowExists}
+          disabled={loading || !escrowExists}
           contentRight={loading && <Loading size="xs" />}
         />
         <Spacer y={2} />
