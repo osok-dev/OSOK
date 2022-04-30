@@ -4,7 +4,7 @@ import "./index.css";
 // import reportWebVitals from "./reportWebVitals";
 import { DAppProvider } from "@usedapp/core";
 import { NextUIProvider } from "@nextui-org/react";
-import { App } from "./components/app";
+import { App } from "./components/App";
 
 ReactDOM.render(
   <React.StrictMode>
