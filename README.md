@@ -19,8 +19,9 @@
 - optimise images / consume from cdn
 - standardise icon usage to one library
 - refine loading states not to block whole app
+- enable overview table
 
 ### Bugs
 
 - hasVault should be callable and not wait for ethers to update the status
-- switching wallets doesnt quite work. old wallets get connected on connect
+- switching wallets doesnt quite work. old wallets get connected on connect; need the modal switcher

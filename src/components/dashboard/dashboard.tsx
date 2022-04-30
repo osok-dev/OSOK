@@ -2,7 +2,7 @@ import React from "react";
 import { Header } from "../header";
 import { Container, Loading, Row, Spacer, Text } from "@nextui-org/react";
 import { ManageJobsAndEscrow } from "../manage-jobs-and-escrow";
-import { OverviewTable } from "../overview-table";
+// import { OverviewTable } from "../overview-table";
 import { useHasActiveTarget, useHasVault } from "../../hooks";
 import { GettingStarted } from "../getting-started";
 import { useEthers } from "@usedapp/core";
@@ -78,13 +78,14 @@ export const Dashboard: React.FC = () => {
 
           {escrowExists && (
             <>
-              <Spacer y={2} />
+              {/* TODO: enable */}
+              {/* <Spacer y={2} />
               <Text weight="bold" h2 size={48}>
                 Overview
               </Text>
               <Spacer />
               <OverviewTable />
-              <Spacer y={5} />
+              <Spacer y={5} /> */}
             </>
           )}
         </>

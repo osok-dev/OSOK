@@ -1,14 +1,17 @@
 import { Card, Spacer, Button, Text, Modal, Row } from "@nextui-org/react";
 import { useEthers } from "@usedapp/core";
-import React, { useState } from "react";
-import { useVaultBalance, useTargetAddress } from "../../hooks";
+import React, { useEffect, useState } from "react";
+import { useVaultBalance, useTargetAddress, useSetTarget } from "../../hooks";
 import { formatAddress, formatBalance } from "../../utils";
 import { BlurredCoverWithConnect } from "../common";
 
 export const ActiveJob: React.FC = () => {
   const [loading, setLoading] = useState(false);
+  const [loadingMessage, setLoadingMessage] = useState("Loading...");
   const { account } = useEthers();
   const [visible, setVisible] = React.useState(false);
+  const { state, send: setTarget } = useSetTarget();
+  const { status, errorMessage } = state;
 
   const targetAddress = useTargetAddress();
   const displayAddress = formatAddress(targetAddress);
@@ -23,10 +26,35 @@ export const ActiveJob: React.FC = () => {
   const handleConfirm = () => {
     setVisible(false);
     setLoading(true);
+
+    const _target = "0x0";
+
+    // TODO: something not right here
+    setTarget(_target);
   };
   const closeHandler = () => {
     setVisible(false);
   };
+
+  // TODO: better handling here
+  useEffect(() => {
+    if (status === "Exception") {
+      setLoading(false);
+      alert(`There was an issue making this transaction. ${errorMessage}`);
+    } else if (status === "PendingSignature") {
+      setLoading(true);
+      setLoadingMessage("Pending Signature...");
+    } else if (status === "None") {
+      setLoading(false);
+    } else if (status === "Fail") {
+      setLoading(false);
+      alert(`There was an issue making this transaction. ${errorMessage}`);
+    } else if (status === "Mining") {
+      setLoadingMessage("Mining...");
+    } else if (status === "Success") {
+      setLoading(true);
+    }
+  }, [status, errorMessage]);
 
   return (
     <Card>
@@ -42,7 +70,7 @@ export const ActiveJob: React.FC = () => {
 
       <Spacer />
       <Button disabled={loading} onClick={handleSubmit} shadow color="error">
-        {loading ? "Awaiting signature..." : "Cancel Job"}
+        {loading ? loadingMessage : "Cancel Job"}
       </Button>
       <Spacer />
       {!account && <BlurredCoverWithConnect />}
