@@ -2,11 +2,11 @@ import React from "react";
 import { Text } from "@nextui-org/react";
 import { useEtherBalance, useEthers } from "@usedapp/core";
 import { formatBalance } from "../../utils";
-import { useEscrowBalance } from "../../hooks";
+import { useVaultBalance } from "../../hooks";
 
 export const Stats: React.FC = () => {
   const { account } = useEthers();
-  const escrowBalance = useEscrowBalance();
+  const escrowBalance = useVaultBalance();
   const escrowDisplayValue = formatBalance(escrowBalance);
 
   const etherBalance = useEtherBalance(account);

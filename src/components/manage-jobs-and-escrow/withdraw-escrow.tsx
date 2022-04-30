@@ -11,7 +11,7 @@ import {
 } from "@nextui-org/react";
 import { useEthers } from "@usedapp/core";
 import React, { useState } from "react";
-import { useEscrowBalance } from "../../hooks";
+import { useVaultBalance } from "../../hooks";
 import { formatBalance } from "../../utils";
 import { BlurredCoverWithConnect } from "../common";
 import { FiInfo } from "react-icons/fi";
@@ -24,7 +24,7 @@ export const WithdrawEscrow: React.FC<Props> = ({ escrowExists }) => {
   const [loading, setLoading] = useState(false);
   const { account } = useEthers();
   const [value, setValue] = useState("");
-  const escrowBalance = useEscrowBalance();
+  const escrowBalance = useVaultBalance();
   const balanceDisplayValue = formatBalance(escrowBalance);
 
   const handleSubmit = () => {

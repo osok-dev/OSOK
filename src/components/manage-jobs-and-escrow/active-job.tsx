@@ -1,12 +1,20 @@
 import { Card, Spacer, Button, Text, Modal, Row } from "@nextui-org/react";
 import { useEthers } from "@usedapp/core";
 import React, { useState } from "react";
+import { useVaultBalance, useTargetAddress } from "../../hooks";
+import { formatAddress, formatBalance } from "../../utils";
 import { BlurredCoverWithConnect } from "../common";
 
 export const ActiveJob: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const { account } = useEthers();
   const [visible, setVisible] = React.useState(false);
+
+  const targetAddress = useTargetAddress();
+  const displayAddress = formatAddress(targetAddress);
+
+  const escrowBalance = useVaultBalance();
+  const balanceDisplayValue = formatBalance(escrowBalance);
 
   const handleSubmit = () => {
     setVisible(true);
@@ -26,11 +34,11 @@ export const ActiveJob: React.FC = () => {
       <Text h3>Active Job</Text>
       <Spacer />
 
-      <Text h5>Current job on address:</Text>
+      <Text h5>Target:</Text>
       <Spacer y={0.5} />
 
-      <Text css={{ fontFamily: "$mono" }}>0x234fds..432342</Text>
-      <Text css={{ fontFamily: "$mono" }}>1234 BNB </Text>
+      <Text css={{ fontFamily: "$mono" }}>{displayAddress}</Text>
+      <Text css={{ fontFamily: "$mono" }}>{balanceDisplayValue}</Text>
 
       <Spacer />
       <Button disabled={loading} onClick={handleSubmit} shadow color="error">

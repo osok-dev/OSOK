@@ -13,10 +13,9 @@ import { useEtherBalance, useEthers } from "@usedapp/core";
 import React, { useEffect, useState } from "react";
 import { FiInfo } from "react-icons/fi";
 import { useCreateVault } from "../../hooks";
-import { formatBalance } from "../../utils";
+import { formatBalance, balanceToFloat } from "../../utils";
 import { BlurredCoverWithConnect } from "../common";
 import { utils } from "ethers";
-import { balanceToFloat } from "../../utils/balance-to-float";
 
 export const CreateEscrow: React.FC = () => {
   const [loading, setLoading] = useState(false);

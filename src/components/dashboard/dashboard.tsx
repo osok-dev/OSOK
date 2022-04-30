@@ -15,6 +15,14 @@ export const Dashboard: React.FC = () => {
   const loadingHasVault = escrowExists === undefined;
   const loadingHasActiveTarget = escrowExists && hasActiveTarget === undefined;
   const showLoading = (loadingHasVault || loadingHasActiveTarget) && account;
+
+  const loadingText = `Loading ${
+    loadingHasVault
+      ? "vault status"
+      : loadingHasActiveTarget
+      ? "target status"
+      : ""
+  }`;
   return (
     <Container>
       <Header isLandingPage={false} />
@@ -29,12 +37,7 @@ export const Dashboard: React.FC = () => {
               }}
               size={60}
             >
-              Loading{" "}
-              {loadingHasVault
-                ? "vault status"
-                : loadingHasActiveTarget
-                ? "target status"
-                : ""}{" "}
+              {loadingText}
               &nbsp;
               <Loading
                 css={{
