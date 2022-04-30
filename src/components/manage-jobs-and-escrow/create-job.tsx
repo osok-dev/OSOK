@@ -34,10 +34,10 @@ export const CreateJob: React.FC<Props> = ({ escrowExists }) => {
       alert("Please provide a contact address");
     } else {
       setLoading(true);
-      const _target = addressValue;
+      // const _target = addressValue;
 
       // TODO: something not right here
-      setTarget(_target);
+      // setTarget(_target);
     }
   };
 
@@ -66,7 +66,7 @@ export const CreateJob: React.FC<Props> = ({ escrowExists }) => {
     } else if (status === "Mining") {
       setLoadingMessage("Mining...");
     } else if (status === "Success") {
-      setLoading(true);
+      setLoading(false);
     }
   }, [status, errorMessage]);
 

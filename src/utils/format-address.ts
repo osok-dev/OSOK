@@ -1,5 +1,4 @@
 export const formatAddress = (address?: string) => {
-  console.log(address);
   if (!address) {
     return "None";
   }

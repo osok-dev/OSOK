@@ -1,8 +1,9 @@
 import { BigNumber } from "@ethersproject/bignumber";
+import { useEtherBalance } from "@usedapp/core";
+import { useGetVaultAddress } from "./useGetVaultAddress";
 
 export function useVaultBalance(): BigNumber | undefined {
-  // TODO: implement
-
-  const mock = BigNumber.from(0);
-  return mock;
+  const address = useGetVaultAddress();
+  const balance = useEtherBalance(address);
+  return balance;
 }

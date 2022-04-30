@@ -10,9 +10,13 @@ import {
   Tooltip,
 } from "@nextui-org/react";
 import { useEthers } from "@usedapp/core";
-import React, { useState } from "react";
-import { useVaultBalance } from "../../hooks";
-import { formatBalance } from "../../utils";
+import React, { useEffect, useState } from "react";
+import {
+  useGetVaultAddress,
+  useVaultBalance,
+  useWithdrawFromVault,
+} from "../../hooks";
+import { formatAddress, formatBalance } from "../../utils";
 import { BlurredCoverWithConnect } from "../common";
 import { FiInfo } from "react-icons/fi";
 
@@ -22,22 +26,52 @@ interface Props {
 
 export const WithdrawEscrow: React.FC<Props> = ({ escrowExists }) => {
   const [loading, setLoading] = useState(false);
+  const [loadingMessage, setLoadingMessage] = useState("Loading...");
+  const { send, state } = useWithdrawFromVault();
+
+  const { status, errorMessage } = state;
+
   const { account } = useEthers();
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(0);
   const escrowBalance = useVaultBalance();
   const balanceDisplayValue = formatBalance(escrowBalance);
+  const vaultAddress = useGetVaultAddress();
 
   const handleSubmit = () => {
     if (!value) {
       alert("Please provide a withdraw amount");
     } else {
       setLoading(true);
+
+      const _amount = value;
+      send(_amount);
     }
   };
 
   const handleChange = (e: React.ChangeEvent<FormElement>) => {
-    setValue(e.target.value);
+    setValue(Number.parseFloat(e.target.value));
   };
+
+  useEffect(() => {
+    console.log("status", status);
+    if (status === "Exception") {
+      setLoading(false);
+      alert(`There was an issue making this transaction. ${errorMessage}`);
+    } else if (status === "PendingSignature") {
+      setLoading(true);
+      setLoadingMessage("Pending Signature...");
+    } else if (status === "None") {
+      setLoading(false);
+    } else if (status === "Fail") {
+      setLoading(false);
+      alert(`There was an issue making this transaction. ${errorMessage}`);
+    } else if (status === "Mining") {
+      setLoadingMessage("Mining...");
+    } else if (status === "Success") {
+      setLoading(false);
+      setValue(0);
+    }
+  }, [status, errorMessage]);
 
   return (
     <Card>
@@ -54,12 +88,15 @@ export const WithdrawEscrow: React.FC<Props> = ({ escrowExists }) => {
       <Spacer />
       <Input
         type="number"
-        label="Amount to withdraw"
+        label={`Amount to deposit. (vault addr: ${formatAddress(
+          vaultAddress
+        )})`}
         placeholder=""
         value={value}
         onChange={handleChange}
-        clearable={!loading}
         bordered
+        min={0}
+        // max={} todo
         labelLeft="BNB"
         disabled={loading || !escrowExists}
         contentRight={loading && <Loading size="xs" />}
@@ -67,7 +104,7 @@ export const WithdrawEscrow: React.FC<Props> = ({ escrowExists }) => {
       />
       <Spacer y={2} />
       <Button disabled={loading || !escrowExists} onClick={handleSubmit} shadow>
-        {loading ? "Awaiting signature..." : "Withdraw"}
+        {loading ? loadingMessage : "Withdraw"}
       </Button>
       <Spacer />
       {!account && <BlurredCoverWithConnect />}

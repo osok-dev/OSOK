@@ -20,6 +20,7 @@
 - standardise icon usage to one library
 - refine loading states not to block whole app
 - enable overview table
+- notification system (toasts/messages)
 
 ### Bugs
 

@@ -27,10 +27,10 @@ export const ActiveJob: React.FC = () => {
     setVisible(false);
     setLoading(true);
 
-    const _target = "0x0";
+    // const _target = "0x0";
 
-    // TODO: something not right here
-    setTarget(_target);
+    // TODO: implement
+    // setTarget(_target);
   };
   const closeHandler = () => {
     setVisible(false);
@@ -52,7 +52,7 @@ export const ActiveJob: React.FC = () => {
     } else if (status === "Mining") {
       setLoadingMessage("Mining...");
     } else if (status === "Success") {
-      setLoading(true);
+      setLoading(false);
     }
   }, [status, errorMessage]);
 

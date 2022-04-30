@@ -9,6 +9,7 @@ const contractInterface = new ethers.utils.Interface(abi);
 export function useHasActiveTarget(): boolean {
   const vaultAddress = useGetVaultAddress();
 
+  // useContractCall deprecated need to replace
   const [hasTarget]: any =
     useContractCall({
       abi: contractInterface,
