@@ -4,15 +4,17 @@ import { Grid } from "@nextui-org/react";
 import { CreateJob } from "./create-job";
 import { DepositEscrow } from "./deposit-escrow";
 import { WithdrawEscrow } from "./withdraw-escrow";
-import { useHasActiveJob } from "../../hooks";
 import { ActiveJob } from "./active-job";
 
 interface Props {
   escrowExists: boolean;
+  hasActiveTarget: boolean;
 }
 
-export const ManageJobsAndEscrow: React.FC<Props> = ({ escrowExists }) => {
-  const hasActiveJob = useHasActiveJob();
+export const ManageJobsAndEscrow: React.FC<Props> = ({
+  escrowExists,
+  hasActiveTarget,
+}) => {
   const gridProps = {
     xs: 12,
     sm: 6,
@@ -23,7 +25,7 @@ export const ManageJobsAndEscrow: React.FC<Props> = ({ escrowExists }) => {
   return (
     <Grid.Container gap={2} css={{ paddingLeft: 0, paddingRight: 0 }}>
       <Grid {...gridProps}>
-        {hasActiveJob ? (
+        {hasActiveTarget ? (
           <ActiveJob />
         ) : (
           <CreateJob escrowExists={escrowExists} />

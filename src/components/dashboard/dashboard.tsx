@@ -3,18 +3,18 @@ import { Header } from "../header";
 import { Container, Loading, Row, Spacer, Text } from "@nextui-org/react";
 import { ManageJobsAndEscrow } from "../manage-jobs-and-escrow";
 import { OverviewTable } from "../overview-table";
-import { useHasVault } from "../../hooks";
+import { useHasActiveTarget, useHasVault } from "../../hooks";
 import { GettingStarted } from "../getting-started";
 import { useEthers } from "@usedapp/core";
 
 export const Dashboard: React.FC = () => {
   const escrowExists = useHasVault();
+  const hasActiveTarget = useHasActiveTarget();
   const { account } = useEthers();
 
-  console.log("vault exists", escrowExists);
-
   const loadingHasVault = escrowExists === undefined;
-  const showLoading = loadingHasVault && account;
+  const loadingHasActiveTarget = escrowExists && hasActiveTarget === undefined;
+  const showLoading = (loadingHasVault || loadingHasActiveTarget) && account;
   return (
     <Container>
       <Header isLandingPage={false} />
@@ -29,13 +29,15 @@ export const Dashboard: React.FC = () => {
               }}
               size={60}
             >
-              Loading &nbsp;
+              Loading{" "}
+              {loadingHasVault
+                ? "vault status"
+                : loadingHasActiveTarget
+                ? "target status"
+                : ""}{" "}
+              &nbsp;
               <Loading
-                // type="points"
-                // color="$red500"
-                // type="points-opacity"
                 css={{
-                  // textGradient: "45deg, $yellow500 -20%, $red500 50%",
                   color: "$red500",
                 }}
                 color="error"
@@ -62,7 +64,10 @@ export const Dashboard: React.FC = () => {
             Manage Jobs and Escrow
           </Text>
           <Spacer />
-          <ManageJobsAndEscrow escrowExists={escrowExists} />
+          <ManageJobsAndEscrow
+            escrowExists={escrowExists}
+            hasActiveTarget={hasActiveTarget}
+          />
 
           <Spacer y={2} />
           <Text weight="bold" h2 size={48}>

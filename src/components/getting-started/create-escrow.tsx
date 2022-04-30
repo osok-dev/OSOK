@@ -16,7 +16,6 @@ import { useCreateVault } from "../../hooks";
 import { formatBalance } from "../../utils";
 import { BlurredCoverWithConnect } from "../common";
 import { utils } from "ethers";
-import { BigNumber } from "@ethersproject/bignumber";
 import { balanceToFloat } from "../../utils/balance-to-float";
 
 export const CreateEscrow: React.FC = () => {
@@ -30,6 +29,8 @@ export const CreateEscrow: React.FC = () => {
 
   const { status, transaction, receipt, errorMessage, originalTransaction } =
     state;
+
+  console.log(transaction, receipt, originalTransaction);
 
   const handleSubmit = () => {
     setLoading(true);
@@ -51,8 +52,6 @@ export const CreateEscrow: React.FC = () => {
 
   // TODO: better handling here
   useEffect(() => {
-    console.log("\n\n", status);
-
     if (status === "Exception") {
       setLoading(false);
       alert(`There was an issue making this transaction. ${errorMessage}`);
