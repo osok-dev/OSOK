@@ -5,10 +5,7 @@
 
 // const simpleContractInterface = new ethers.utils.Interface(exampleContractAbi);
 
-export function useHasActiveJob(): boolean {
+export function useDepositToVault(): boolean {
   return false;
-
-  // uncomment when addresses filled in contracts/index.ts
-
-  // TODO: implement - see useHasVault
+  // TODO: implement
 }
