@@ -31,7 +31,7 @@ export const CreateEscrow: React.FC = () => {
   return (
     <Card>
       <Spacer />
-      <Text h3>Create Escrow</Text>
+      <Text h3>1. Create Escrow</Text>
       <Spacer />
 
       <Input

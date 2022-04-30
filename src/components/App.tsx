@@ -7,8 +7,8 @@ export const App: React.FC = () => {
   return (
     <HashRouter basename="/">
       <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/app" element={<Dashboard />} />
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/about" element={<LandingPage />} />
       </Routes>
     </HashRouter>
   );
