@@ -1,11 +1,17 @@
-// import exampleContractAbi from "../abi/ExampleContract.json";
-// import { ethers } from "ethers";
-// import { vaultFactoryContractAddress } from "../contracts";
-// import { useContractCall } from "@usedapp/core";
+import vaultFactoryContract from "../abi/VaultFactory.json";
+import { ethers } from "ethers";
+import { Contract } from "@ethersproject/contracts";
 
-// const simpleContractInterface = new ethers.utils.Interface(exampleContractAbi);
+import { vaultFactoryContractAddress } from "../contracts";
+import { useContractFunction } from "@usedapp/core";
 
-export function useCreateEscrow(): boolean {
-  return false;
-  // TODO: implement
+const abi = vaultFactoryContract.abi;
+const contractInterface = new ethers.utils.Interface(abi);
+const contract = new Contract(vaultFactoryContractAddress, contractInterface);
+
+export function useCreateVault() {
+  const { state, send } = useContractFunction(contract, "createVault", {
+    transactionName: "Create Vault",
+  });
+  return { state, send };
 }
