@@ -1,5 +1,4 @@
 import {
-  Button,
   Card,
   FormElement,
   Input,
@@ -8,19 +7,17 @@ import {
   Spacer,
   Tooltip,
 } from "@nextui-org/react";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Text } from "@nextui-org/react";
 import { useEthers } from "@usedapp/core";
-import { BlurredCoverWithConnect } from "../common";
+import { BlurredCoverWithConnect, TransactionButton } from "../common";
 import { FiInfo } from "react-icons/fi";
 import { useSetTarget } from "../../hooks/useSetTarget";
 
 export const CreateJob: React.FC = () => {
   const [loading, setLoading] = useState(false);
-  const [loadingMessage, setLoadingMessage] = useState("Loading...");
   const [addressValue, setAddressValue] = useState("");
   const { state, send: setTarget } = useSetTarget();
-  const { status, errorMessage } = state;
 
   const { account } = useEthers();
 
@@ -39,25 +36,9 @@ export const CreateJob: React.FC = () => {
     setAddressValue(e.target.value);
   };
 
-  // TODO: better handling here
-  useEffect(() => {
-    if (status === "Exception") {
-      setLoading(false);
-      alert(`There was an issue making this transaction. ${errorMessage}`);
-    } else if (status === "PendingSignature") {
-      setLoading(true);
-      setLoadingMessage("Pending Signature...");
-    } else if (status === "None") {
-      setLoading(false);
-    } else if (status === "Fail") {
-      setLoading(false);
-      alert(`There was an issue making this transaction. ${errorMessage}`);
-    } else if (status === "Mining") {
-      setLoadingMessage("Mining...");
-    } else if (status === "Success") {
-      setLoading(false);
-    }
-  }, [status, errorMessage]);
+  const handleOnSuccess = useCallback(() => {
+    setAddressValue("");
+  }, []);
 
   return (
     <>
@@ -86,9 +67,14 @@ export const CreateJob: React.FC = () => {
         />
         <Spacer />
         <Spacer />
-        <Button disabled={loading} onClick={handleSubmit} shadow auto>
-          {loading ? loadingMessage : "Submit"}
-        </Button>
+        <TransactionButton
+          text={"Submit"}
+          loading={loading}
+          setLoading={setLoading}
+          state={state}
+          handleSubmit={handleSubmit}
+          onSuccess={handleOnSuccess}
+        />
         <Spacer />
         {!account && <BlurredCoverWithConnect />}
       </Card>

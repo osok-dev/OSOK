@@ -6,12 +6,25 @@ import { DAppProvider } from "@usedapp/core";
 import { NextUIProvider } from "@nextui-org/react";
 import { App } from "./components/App";
 
+// https://bsc-dataseed.binance.org/
+// https://data-seed-prebsc-1-s1.binance.org:8545/
+
 ReactDOM.render(
   <React.StrictMode>
     <DAppProvider
-      config={{
-        pollingInterval: 500,
-      }}
+      config={
+        {
+          // pollingInterval: 500,
+          // notifications: {
+          //   checkInterval: 500,
+          //   expirationPeriod: 5000,
+          // },
+          // readOnlyChainId: 97,
+          // readOnlyUrls: {
+          //   97: `https://data-seed-prebsc-1-s1.binance.org:8545/`,
+          // },
+        }
+      }
     >
       <NextUIProvider>
         <App />

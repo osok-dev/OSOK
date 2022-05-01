@@ -3,28 +3,25 @@ import {
   Spacer,
   Input,
   Loading,
-  Button,
   Text,
   FormElement,
   Tooltip,
   Row,
 } from "@nextui-org/react";
 import { useEtherBalance, useEthers, useSendTransaction } from "@usedapp/core";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { formatAddress, formatBalance } from "../../utils";
-import { BlurredCoverWithConnect } from "../common";
+import { BlurredCoverWithConnect, TransactionButton } from "../common";
 import { FiInfo } from "react-icons/fi";
 import { utils } from "ethers";
 import { useGetVaultAddress } from "../../hooks";
 
 export const DepositEscrow: React.FC = () => {
   const [loading, setLoading] = useState(false);
-  const [loadingMessage, setLoadingMessage] = useState("Loading...");
   const [value, setValue] = useState(0);
   const { account } = useEthers();
   const { sendTransaction, state } = useSendTransaction();
   const vaultAddress = useGetVaultAddress();
-  const { status, errorMessage } = state;
 
   const handleSubmit = () => {
     if (!value) {
@@ -47,25 +44,9 @@ export const DepositEscrow: React.FC = () => {
   const etherBalance = useEtherBalance(account);
   const balanceDisplayValue = formatBalance(etherBalance);
 
-  useEffect(() => {
-    if (status === "Exception") {
-      setLoading(false);
-      alert(`There was an issue making this transaction. ${errorMessage}`);
-    } else if (status === "PendingSignature") {
-      setLoading(true);
-      setLoadingMessage("Pending Signature...");
-    } else if (status === "None") {
-      setLoading(false);
-    } else if (status === "Fail") {
-      setLoading(false);
-      alert(`There was an issue making this transaction. ${errorMessage}`);
-    } else if (status === "Mining") {
-      setLoadingMessage("Mining...");
-    } else if (status === "Success") {
-      setLoading(false);
-      setValue(0);
-    }
-  }, [status, errorMessage]);
+  const handleOnSuccess = useCallback(() => {
+    setValue(0);
+  }, []);
 
   return (
     <Card>
@@ -97,9 +78,14 @@ export const DepositEscrow: React.FC = () => {
         helperText={`Wallet balance: ${balanceDisplayValue}`}
       />
       <Spacer y={2} />
-      <Button disabled={loading} onClick={handleSubmit} shadow>
-        {loading ? loadingMessage : "Deposit"}
-      </Button>
+      <TransactionButton
+        text={"Deposit"}
+        loading={loading}
+        setLoading={setLoading}
+        state={state}
+        handleSubmit={handleSubmit}
+        onSuccess={handleOnSuccess}
+      />
       <Spacer />
       {!account && <BlurredCoverWithConnect />}
     </Card>
