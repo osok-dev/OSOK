@@ -6,3 +6,4 @@ export * from "./useWithdrawFromVault";
 export * from "./useGetVaultAddress";
 export * from "./useTargetAddress";
 export * from "./useSetTarget";
+export * from "./useVaultHistory";

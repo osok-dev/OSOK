@@ -21,11 +21,7 @@ import { BlurredCoverWithConnect } from "../common";
 import { FiInfo } from "react-icons/fi";
 import { utils } from "ethers";
 
-interface Props {
-  escrowExists: boolean;
-}
-
-export const WithdrawEscrow: React.FC<Props> = ({ escrowExists }) => {
+export const WithdrawEscrow: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [loadingMessage, setLoadingMessage] = useState("Loading...");
   const { send, state } = useWithdrawFromVault();
@@ -98,12 +94,12 @@ export const WithdrawEscrow: React.FC<Props> = ({ escrowExists }) => {
         min={0}
         // max={} todo
         labelLeft="BNB"
-        disabled={loading || !escrowExists}
+        disabled={loading}
         contentRight={loading && <Loading size="xs" />}
         helperText={`Escrow balance: ${balanceDisplayValue}`}
       />
       <Spacer y={2} />
-      <Button disabled={loading || !escrowExists} onClick={handleSubmit} shadow>
+      <Button disabled={loading} onClick={handleSubmit} shadow>
         {loading ? loadingMessage : "Withdraw"}
       </Button>
       <Spacer />

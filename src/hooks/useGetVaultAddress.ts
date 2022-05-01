@@ -1,16 +1,17 @@
-import vaultFactoryContract from "../abi/VaultFactory.json";
-import { ethers } from "ethers";
-import { vaultFactoryContractAddress } from "../contracts";
+import {
+  vaultFactoryContractAddress,
+  vaultFactoryContractInterface,
+} from "../contracts";
 import { useCall, useEthers } from "@usedapp/core";
 import { Contract } from "@ethersproject/contracts";
 
-const abi = vaultFactoryContract.abi;
-const contractInterface = new ethers.utils.Interface(abi);
-
-export function useGetVaultAddress(): string {
+export function useGetVaultAddress(): string | undefined {
   const { account } = useEthers();
 
-  const contract = new Contract(vaultFactoryContractAddress, contractInterface);
+  const contract = new Contract(
+    vaultFactoryContractAddress,
+    vaultFactoryContractInterface
+  );
   const { value, error } =
     useCall({
       contract,
@@ -19,7 +20,7 @@ export function useGetVaultAddress(): string {
     }) ?? {};
   if (error) {
     console.error(error.message);
-    // return undefined;
+    return undefined;
   }
   return value?.[0];
 }

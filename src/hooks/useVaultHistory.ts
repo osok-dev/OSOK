@@ -1,13 +1,13 @@
 import { useCall } from "@usedapp/core";
 import { Contract } from "@ethersproject/contracts";
-import { vaultContractInterface } from "../contracts";
+import { vaultFactoryContractInterface } from "../contracts";
 
-export function useHasActiveTarget(vaultAddress: string): boolean | undefined {
-  const contract = new Contract(vaultAddress, vaultContractInterface);
+export function useVaultHistory(vaultAddress: string): any[] | undefined {
+  const contract = new Contract(vaultAddress, vaultFactoryContractInterface);
   const { value, error } =
     useCall({
       contract,
-      method: "hasTarget",
+      method: "getHistory",
       args: [],
     }) ?? {};
   if (error) {

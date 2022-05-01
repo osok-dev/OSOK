@@ -1,15 +1,16 @@
-import vaultContract from "../abi/Vault.json";
-import { ethers } from "ethers";
 import { useGetVaultAddress } from "./useGetVaultAddress";
 import { Contract } from "@ethersproject/contracts";
 import { useCall } from "@usedapp/core";
-
-const abi = vaultContract.abi;
-const contractInterface = new ethers.utils.Interface(abi);
+import { vaultContractInterface } from "../contracts";
 
 export function useTargetAddress(): string {
   const vaultAddress = useGetVaultAddress();
-  const contract = new Contract(vaultAddress, contractInterface);
+
+  if (!vaultAddress) {
+    throw new Error("Vault address was undefined");
+  }
+
+  const contract = new Contract(vaultAddress, vaultContractInterface);
 
   const { value, error } =
     useCall({

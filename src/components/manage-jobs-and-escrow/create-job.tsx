@@ -15,15 +15,10 @@ import { BlurredCoverWithConnect } from "../common";
 import { FiInfo } from "react-icons/fi";
 import { useSetTarget } from "../../hooks/useSetTarget";
 
-interface Props {
-  escrowExists: boolean;
-}
-
-export const CreateJob: React.FC<Props> = ({ escrowExists }) => {
+export const CreateJob: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [loadingMessage, setLoadingMessage] = useState("Loading...");
   const [addressValue, setAddressValue] = useState("");
-  // const [slippageValue, setSlippageValue] = useState(12);
   const { state, send: setTarget } = useSetTarget();
   const { status, errorMessage } = state;
 
@@ -43,11 +38,6 @@ export const CreateJob: React.FC<Props> = ({ escrowExists }) => {
   const handleAddressChange = (e: React.ChangeEvent<FormElement>) => {
     setAddressValue(e.target.value);
   };
-
-  // const handleSlippageChange = (e: React.ChangeEvent<FormElement>) => {
-  //   const slippage = Number.parseInt(e.target.value, 10);
-  //   setSlippageValue(slippage);
-  // };
 
   // TODO: better handling here
   useEffect(() => {
@@ -91,30 +81,12 @@ export const CreateJob: React.FC<Props> = ({ escrowExists }) => {
           placeholder=""
           clearable={!loading}
           bordered
-          disabled={loading || !escrowExists}
+          disabled={loading}
           contentRight={loading && <Loading size="xs" />}
         />
         <Spacer />
-
-        {/* <Input
-          type="number"
-          step={1}
-          min={0}
-          label="Slippage (%)"
-          value={slippageValue}
-          onChange={handleSlippageChange}
-          placeholder=""
-          bordered
-          disabled={loading || !escrowExists}
-          contentRight={loading && <Loading size="xs" />}
-        /> */}
         <Spacer />
-        <Button
-          disabled={loading || !escrowExists}
-          onClick={handleSubmit}
-          shadow
-          auto
-        >
+        <Button disabled={loading} onClick={handleSubmit} shadow auto>
           {loading ? loadingMessage : "Submit"}
         </Button>
         <Spacer />

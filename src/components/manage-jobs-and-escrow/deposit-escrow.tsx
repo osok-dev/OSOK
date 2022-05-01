@@ -17,11 +17,7 @@ import { FiInfo } from "react-icons/fi";
 import { utils } from "ethers";
 import { useGetVaultAddress } from "../../hooks";
 
-interface Props {
-  escrowExists: boolean;
-}
-
-export const DepositEscrow: React.FC<Props> = ({ escrowExists }) => {
+export const DepositEscrow: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [loadingMessage, setLoadingMessage] = useState("Loading...");
   const [value, setValue] = useState(0);
@@ -96,12 +92,12 @@ export const DepositEscrow: React.FC<Props> = ({ escrowExists }) => {
         bordered
         min={0}
         labelLeft="BNB"
-        disabled={loading || !escrowExists}
+        disabled={loading}
         contentRight={loading && <Loading size="xs" />}
         helperText={`Wallet balance: ${balanceDisplayValue}`}
       />
       <Spacer y={2} />
-      <Button disabled={loading || !escrowExists} onClick={handleSubmit} shadow>
+      <Button disabled={loading} onClick={handleSubmit} shadow>
         {loading ? loadingMessage : "Deposit"}
       </Button>
       <Spacer />

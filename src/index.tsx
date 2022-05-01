@@ -8,7 +8,11 @@ import { App } from "./components/App";
 
 ReactDOM.render(
   <React.StrictMode>
-    <DAppProvider config={{}}>
+    <DAppProvider
+      config={{
+        pollingInterval: 500,
+      }}
+    >
       <NextUIProvider>
         <App />
       </NextUIProvider>
