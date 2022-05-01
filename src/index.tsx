@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 // import reportWebVitals from "./reportWebVitals";
-import { DAppProvider } from "@usedapp/core";
+import { ChainId, DAppProvider } from "@usedapp/core";
 import { NextUIProvider } from "@nextui-org/react";
 import { App } from "./components/App";
 
@@ -12,19 +12,17 @@ import { App } from "./components/App";
 ReactDOM.render(
   <React.StrictMode>
     <DAppProvider
-      config={
-        {
-          // pollingInterval: 500,
-          // notifications: {
-          //   checkInterval: 500,
-          //   expirationPeriod: 5000,
-          // },
-          // readOnlyChainId: 97,
-          // readOnlyUrls: {
-          //   97: `https://data-seed-prebsc-1-s1.binance.org:8545/`,
-          // },
-        }
-      }
+      config={{
+        pollingInterval: 1000,
+        // notifications: {
+        //   checkInterval: 500,
+        //   expirationPeriod: 5000,
+        // },
+        // readOnlyChainId: ChainId.BSCTestnet,
+        // readOnlyUrls: {
+        //   [ChainId.BSCTestnet]: `https://kind-shaw:kosher-spur-karate-olive-rigor-always@nd-956-974-047.p2pify.com`,
+        // },
+      }}
     >
       <NextUIProvider>
         <App />
