@@ -30,20 +30,18 @@ export const Stats: React.FC = () => {
   return (
     <div>
       <Text size={14} css={{ fontFamily: "$mono", textAlign: "right" }}>
-        {account ? `WALLET BALANCE: ${walletDisplayValue}` : <>&nbsp;</>}
+        WALLET BALANCE: {walletDisplayValue}
       </Text>
       <Text size={14} css={{ fontFamily: "$mono", textAlign: "right" }}>
-        {account ? `ESCROW BALANCE: ${escrowDisplayValue}` : <>&nbsp;</>}
+        ESCROW BALANCE: {escrowDisplayValue}
       </Text>
-      <Text size={14} css={{ fontFamily: "$mono", textAlign: "right" }}>
-        {account ? (
-          <>
-            {`ESCROW: ${displayAddress} ${isCopied ? "(Copied!)" : ""}`}{" "}
-            <BiCopy style={{ cursor: "pointer" }} onClick={handleCopy} />
-          </>
-        ) : (
-          <>&nbsp;</>
-        )}
+      <Text
+        size={14}
+        css={{ fontFamily: "$mono", textAlign: "right", cursor: "pointer" }}
+        onClick={handleCopy}
+      >
+        ESCROW: {displayAddress} {isCopied ? "(Copied!)" : ""}
+        <BiCopy />
       </Text>
     </div>
   );
