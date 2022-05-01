@@ -6,11 +6,11 @@ import { Contract } from "@ethersproject/contracts";
 
 const abi = vaultFactoryContract.abi;
 const contractInterface = new ethers.utils.Interface(abi);
-const contract = new Contract(vaultFactoryContractAddress, contractInterface);
 
 export function useGetVaultAddress(): string {
   const { account } = useEthers();
 
+  const contract = new Contract(vaultFactoryContractAddress, contractInterface);
   const { value, error } =
     useCall({
       contract,

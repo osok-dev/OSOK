@@ -12,6 +12,7 @@ interface Props {
 }
 export const Header: React.FC<Props> = ({ isLandingPage }) => {
   const { chainId } = useEthers();
+  const { account } = useEthers();
 
   const isTestnet = chainId === 97;
   const logoCss = isLandingPage
@@ -57,7 +58,7 @@ export const Header: React.FC<Props> = ({ isLandingPage }) => {
       </Row>
 
       <Row justify="flex-end" align="center">
-        {!isLandingPage && <Stats />}
+        {!isLandingPage && account && <Stats />}
       </Row>
     </div>
   );

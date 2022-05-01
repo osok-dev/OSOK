@@ -1,6 +1,5 @@
-import { CreateEscrow } from "./create-escrow";
-import React from "react";
 import { Grid } from "@nextui-org/react";
+import { SkeletonTile } from "../common";
 import { QuickGuide } from "./quick-guide";
 
 const gridProps = {
@@ -10,17 +9,15 @@ const gridProps = {
   lg: 4,
 };
 
-export const GettingStarted: React.FC = () => {
+export const GettingStartedNoAccount: React.FC = () => {
   return (
     <Grid.Container gap={2} css={{ paddingLeft: 0, paddingRight: 0 }}>
       <Grid {...gridProps}>
         <QuickGuide />
       </Grid>
       <Grid {...gridProps}>
-        <CreateEscrow />
+        <SkeletonTile />
       </Grid>
-
-      <Grid {...gridProps}></Grid>
     </Grid.Container>
   );
 };

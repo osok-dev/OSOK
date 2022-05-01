@@ -1,13 +1,37 @@
 import React from "react";
 import { Header } from "../header";
-import { Container, Loading, Row, Spacer, Text } from "@nextui-org/react";
+import { Container, Spacer, Text } from "@nextui-org/react";
 import { ManageJobsAndEscrow } from "../manage-jobs-and-escrow";
 // import { OverviewTable } from "../overview-table";
 import { useHasActiveTarget, useHasVault } from "../../hooks";
 import { GettingStarted } from "../getting-started";
 import { useEthers } from "@usedapp/core";
+import { LoadingText } from "./loading-text";
+import { GettingStartedNoAccount } from "../getting-started/getting-started-no-account";
 
-export const Dashboard: React.FC = () => {
+export const DashboardContainer: React.FC = () => {
+  const { account } = useEthers();
+
+  return (
+    <Container>
+      <Header isLandingPage={false} />
+      {account ? (
+        <Dashboard />
+      ) : (
+        <>
+          <Spacer y={2} />
+          <Text weight="bold" h2 size={48}>
+            Getting started
+          </Text>
+          <Spacer />
+          <GettingStartedNoAccount />
+        </>
+      )}
+    </Container>
+  );
+};
+
+const Dashboard: React.FC = () => {
   const escrowExists = useHasVault();
   const hasActiveTarget = useHasActiveTarget();
   const { account } = useEthers();
@@ -24,31 +48,9 @@ export const Dashboard: React.FC = () => {
       : ""
   }`;
   return (
-    <Container>
-      <Header isLandingPage={false} />
+    <>
       {showLoading ? (
-        <>
-          <Spacer y={8} />
-          <Row justify="center">
-            <Text
-              weight="bold"
-              css={{
-                textGradient: "45deg, $yellow500 -20%, $red500 50%",
-              }}
-              size={60}
-            >
-              {loadingText}
-              &nbsp;
-              <Loading
-                css={{
-                  color: "$red500",
-                }}
-                color="error"
-                size="md"
-              />
-            </Text>
-          </Row>
-        </>
+        <LoadingText text={loadingText} />
       ) : (
         <>
           {!escrowExists && (
@@ -90,6 +92,6 @@ export const Dashboard: React.FC = () => {
           )}
         </>
       )}
-    </Container>
+    </>
   );
 };
