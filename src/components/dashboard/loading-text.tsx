@@ -7,7 +7,7 @@ export const LoadingText: React.FC<Props> = ({ text }) => {
   return (
     <>
       <Spacer y={8} />
-      <Row justify="center">
+      <Row justify="center" align="baseline">
         <Text
           weight="bold"
           css={{
@@ -16,15 +16,15 @@ export const LoadingText: React.FC<Props> = ({ text }) => {
           size={60}
         >
           {text}
-          &nbsp;
-          <Loading
-            css={{
-              color: "$red500",
-            }}
-            color="error"
-            size="md"
-          />
         </Text>
+        <Loading
+          css={{
+            color: "$red500",
+            marginLeft: 20,
+          }}
+          color="error"
+          size="md"
+        />
       </Row>
     </>
   );

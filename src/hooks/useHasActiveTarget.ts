@@ -1,21 +1,19 @@
-import vaultContract from "../abi/Vault.json";
-import { ethers } from "ethers";
-import { useContractCall } from "@usedapp/core";
-import { useGetVaultAddress } from "./useGetVaultAddress";
+import { useCall } from "@usedapp/core";
+import { Contract } from "@ethersproject/contracts";
+import { vaultContractInterface } from "../contracts";
 
-const abi = vaultContract.abi;
-const contractInterface = new ethers.utils.Interface(abi);
-
-export function useHasActiveTarget(): boolean {
-  const vaultAddress = useGetVaultAddress();
-
-  // useContractCall deprecated need to replace
-  const [hasTarget]: any =
-    useContractCall({
-      abi: contractInterface,
-      address: vaultAddress,
+export function useHasActiveTarget(vaultAddress: string): boolean | undefined {
+  const contract = new Contract(vaultAddress, vaultContractInterface);
+  const { value, error } =
+    useCall({
+      contract,
       method: "hasTarget",
       args: [],
-    }) ?? [];
-  return hasTarget;
+    }) ?? {};
+  if (error) {
+    console.error(error.message);
+    return undefined;
+  }
+
+  return value?.[0];
 }

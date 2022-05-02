@@ -1,17 +1,15 @@
 import { Card, Spacer, Button, Text, Modal, Row } from "@nextui-org/react";
 import { useEthers } from "@usedapp/core";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useVaultBalance, useTargetAddress, useSetTarget } from "../../hooks";
 import { formatBalance } from "../../utils";
-import { BlurredCoverWithConnect } from "../common";
+import { BlurredCoverWithConnect, TransactionButton } from "../common";
 
 export const ActiveJob: React.FC = () => {
   const [loading, setLoading] = useState(false);
-  const [loadingMessage, setLoadingMessage] = useState("Loading...");
   const { account } = useEthers();
   const [visible, setVisible] = React.useState(false);
   const { state, send: setTarget } = useSetTarget();
-  const { status, errorMessage } = state;
 
   const targetAddress = useTargetAddress();
   const escrowBalance = useVaultBalance();
@@ -33,26 +31,6 @@ export const ActiveJob: React.FC = () => {
     setVisible(false);
   };
 
-  // TODO: better handling here
-  useEffect(() => {
-    if (status === "Exception") {
-      setLoading(false);
-      alert(`There was an issue making this transaction. ${errorMessage}`);
-    } else if (status === "PendingSignature") {
-      setLoading(true);
-      setLoadingMessage("Pending Signature...");
-    } else if (status === "None") {
-      setLoading(false);
-    } else if (status === "Fail") {
-      setLoading(false);
-      alert(`There was an issue making this transaction. ${errorMessage}`);
-    } else if (status === "Mining") {
-      setLoadingMessage("Mining...");
-    } else if (status === "Success") {
-      setLoading(false);
-    }
-  }, [status, errorMessage]);
-
   return (
     <Card>
       <Spacer />
@@ -66,9 +44,15 @@ export const ActiveJob: React.FC = () => {
       <Text css={{ fontFamily: "$mono" }}>{balanceDisplayValue}</Text>
 
       <Spacer />
-      <Button disabled={loading} onClick={handleSubmit} shadow color="error">
-        {loading ? loadingMessage : "Cancel Job"}
-      </Button>
+
+      <TransactionButton
+        text={"Cancel Job"}
+        loading={loading}
+        setLoading={setLoading}
+        state={state}
+        handleSubmit={handleSubmit}
+        color="error"
+      />
       <Spacer />
       {!account && <BlurredCoverWithConnect />}
 

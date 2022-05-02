@@ -9,7 +9,6 @@ import { useEthers } from "@usedapp/core";
 import { SkeletonTile } from "../common";
 
 interface Props {
-  escrowExists: boolean;
   hasActiveTarget: boolean;
 }
 
@@ -18,13 +17,6 @@ const gridProps = {
   sm: 6,
   md: 4,
   lg: 4,
-};
-
-const gridSpacerProps = {
-  xs: 0,
-  sm: 6,
-  md: 0,
-  lg: 0,
 };
 
 const SkeletonGrid = () => {
@@ -43,10 +35,7 @@ const SkeletonGrid = () => {
   );
 };
 
-export const ManageJobsAndEscrow: React.FC<Props> = ({
-  escrowExists,
-  hasActiveTarget,
-}) => {
+export const ManageJobsAndEscrow: React.FC<Props> = ({ hasActiveTarget }) => {
   const { account } = useEthers();
 
   if (!account) {
@@ -56,19 +45,14 @@ export const ManageJobsAndEscrow: React.FC<Props> = ({
   return (
     <Grid.Container gap={2} css={{ paddingLeft: 0, paddingRight: 0 }}>
       <Grid {...gridProps}>
-        {hasActiveTarget ? (
-          <ActiveJob />
-        ) : (
-          <CreateJob escrowExists={escrowExists} />
-        )}
+        {hasActiveTarget ? <ActiveJob /> : <CreateJob />}
       </Grid>
-      <Grid {...gridSpacerProps}></Grid>
       <Grid {...gridProps}>
-        <DepositEscrow escrowExists={escrowExists} />
+        <DepositEscrow />
       </Grid>
 
       <Grid {...gridProps}>
-        <WithdrawEscrow escrowExists={escrowExists} />
+        <WithdrawEscrow />
       </Grid>
     </Grid.Container>
   );

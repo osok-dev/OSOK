@@ -13,7 +13,7 @@ import { useEtherBalance, useEthers } from "@usedapp/core";
 import React, { useEffect, useState } from "react";
 import { FiInfo } from "react-icons/fi";
 import { useCreateVault } from "../../hooks";
-import { formatBalance, balanceToFloat } from "../../utils";
+import { formatBalance, bigNumberToFloat } from "../../utils";
 import { BlurredCoverWithConnect } from "../common";
 import { utils } from "ethers";
 
@@ -64,7 +64,7 @@ export const CreateEscrow: React.FC = () => {
 
   const etherBalance = useEtherBalance(account);
   const balanceDisplayValue = formatBalance(etherBalance);
-  const maxDeposit = balanceToFloat(etherBalance);
+  const maxDeposit = bigNumberToFloat(etherBalance);
 
   return (
     <Card>

@@ -22,9 +22,5 @@ export const Identicon: React.FC = () => {
     }
   }, [account]);
 
-  return (
-    <div>
-      <StyledIdenticon ref={ref as any} />
-    </div>
-  );
+  return <StyledIdenticon ref={ref as any} />;
 };
