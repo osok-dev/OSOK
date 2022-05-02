@@ -5,7 +5,8 @@ import { colDefs } from "./column-definitions";
 import styled from "styled-components";
 import { useVaultHistory } from "../../hooks";
 import { bigNumberToFloat } from "../../utils";
-
+import { unixToHuman } from "../../utils";
+import { utils } from "ethers";
 interface RowData {
   key: string;
   status: string;
@@ -53,12 +54,12 @@ export const OverviewTable: React.FC = () => {
       return {
         key: i,
         target: rawObj.target,
-        time: bigNumberToFloat(rawObj.time),
+        time: unixToHuman(rawObj.time),
         amountIn: bigNumberToFloat(rawObj.amountIn),
         amountOut: bigNumberToFloat(rawObj.amountOut),
-        blockNumber: bigNumberToFloat(rawObj.blockNumber),
+        blockNumber: rawObj.blockNumber.toString(),
         gasCostBNB: bigNumberToFloat(rawObj.gasCostBNB),
-        gasPrice: bigNumberToFloat(rawObj.gasPrice),
+        gasPrice: rawObj.gasPrice.toString() + " Gwei", // TODO: Fix this to be unit-agnostic
       };
     });
   }, [history]);

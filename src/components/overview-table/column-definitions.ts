@@ -4,8 +4,12 @@ export const colDefs = [
     label: "TARGET",
   },
   {
+    key: "blockNumber",
+    label: "BLOCK NO",
+  },
+  {
     key: "time",
-    label: "TIMESTAMP",
+    label: "TIMESTAMP (UTC)",
   },
   {
     key: "amountIn",
@@ -16,11 +20,11 @@ export const colDefs = [
     label: "AMOUNT OUT",
   },
   {
-    key: "blockNumber",
-    label: "BLOCK NO",
-  },
-  {
     key: "gasPrice",
     label: "GAS PRICE",
+  },
+  {
+    key: "gasCostBNB",
+    label: "GAS FEE (BNB) ",
   },
 ];
