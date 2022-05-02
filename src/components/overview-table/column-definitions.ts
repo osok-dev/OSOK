@@ -1,23 +1,11 @@
 export const colDefs = [
   {
-    key: "status",
-    label: "STATUS",
+    key: "target",
+    label: "TARGET",
   },
   {
-    key: "amount",
-    label: "AMOUNT",
-  },
-  {
-    key: "address",
-    label: "ADDRESS",
-  },
-  {
-    key: "timestamp",
+    key: "time",
     label: "TIMESTAMP",
-  },
-  {
-    key: "blockNo",
-    label: "BLOCK NO",
   },
   {
     key: "amountIn",
@@ -28,15 +16,11 @@ export const colDefs = [
     label: "AMOUNT OUT",
   },
   {
+    key: "blockNumber",
+    label: "BLOCK NO",
+  },
+  {
     key: "gasPrice",
     label: "GAS PRICE",
-  },
-  {
-    key: "gasAmount",
-    label: "GAS AMOUNT",
-  },
-  {
-    key: "gasCost",
-    label: "GAS COST",
   },
 ];

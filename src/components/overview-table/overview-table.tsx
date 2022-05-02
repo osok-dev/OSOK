@@ -1,8 +1,10 @@
 import { Table, Text } from "@nextui-org/react";
 import { useBlockNumber } from "@usedapp/core";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { colDefs } from "./column-definitions";
 import styled from "styled-components";
+import { useVaultHistory } from "../../hooks";
+import { bigNumberToFloat } from "../../utils";
 
 interface RowData {
   key: string;
@@ -25,6 +27,7 @@ const Root = styled.div`
 let time = window.performance.now();
 export const OverviewTable: React.FC = () => {
   const blockNo = useBlockNumber();
+  const history = useVaultHistory();
 
   useEffect(() => {
     const now = window.performance.now();
@@ -37,7 +40,28 @@ export const OverviewTable: React.FC = () => {
     time = now;
   }, [blockNo]);
 
-  const data: any = [];
+  // amountIn: BigNumber {_hex: '0x0de0b6b3a7640000', _isBigNumber: true}
+  // amountOut: BigNumber {_hex: '0x0bb99385589add1a00', _isBigNumber: true}
+  // blockNumber: BigNumber {_hex: '0x0109ed58', _isBigNumber: true}
+  // gasCostBNB: BigNumber {_hex: '0x0630ae4af0c600', _isBigNumber: true}
+  // gasPrice: BigNumber {_hex: '0x05', _isBigNumber: true}
+  // target: "0xF4505E3B9BeeAB5dDFaD7e7a90f0DB89dD61EfE1"
+  // time: BigNumber {_hex: '0x626de9cd', _isBigNumber: true}
+
+  const data: any[] = useMemo(() => {
+    return (history || []).map((rawObj, i) => {
+      return {
+        key: i,
+        target: rawObj.target,
+        time: bigNumberToFloat(rawObj.time),
+        amountIn: bigNumberToFloat(rawObj.amountIn),
+        amountOut: bigNumberToFloat(rawObj.amountOut),
+        blockNumber: bigNumberToFloat(rawObj.blockNumber),
+        gasCostBNB: bigNumberToFloat(rawObj.gasCostBNB),
+        gasPrice: bigNumberToFloat(rawObj.gasPrice),
+      };
+    });
+  }, [history]);
 
   return (
     <Root>
