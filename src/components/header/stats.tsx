@@ -10,16 +10,20 @@ export const Stats: React.FC = () => {
 
   const { account } = useEthers();
   const escrowBalance = useVaultBalance();
-  const escrowDisplayValue = formatBalance(escrowBalance);
+  const escrowDisplayValue = escrowBalance
+    ? formatBalance(escrowBalance)
+    : "loading";
 
   const etherBalance = useEtherBalance(account);
-  const walletDisplayValue = formatBalance(etherBalance);
+  const walletDisplayValue = etherBalance
+    ? formatBalance(etherBalance)
+    : "loading";
 
   const vaultAddress = useGetVaultAddress();
-  const displayAddress = formatAddress(vaultAddress);
+  const displayAddress = vaultAddress ? formatAddress(vaultAddress) : "loading";
 
   const handleCopy = useCallback(() => {
-    navigator.clipboard.writeText(vaultAddress);
+    navigator.clipboard.writeText(vaultAddress ?? "");
     setIsCopied(true);
   }, [vaultAddress]);
 
@@ -41,7 +45,7 @@ export const Stats: React.FC = () => {
         onClick={handleCopy}
       >
         ESCROW: {displayAddress} {isCopied ? "(Copied!)" : ""}
-        <BiCopy />
+        {vaultAddress && <BiCopy />}
       </Text>
     </div>
   );
